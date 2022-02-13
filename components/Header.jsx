@@ -1,6 +1,5 @@
 import Image from "next/image";
 import Link from "next/link";
-import React from "react";
 
 export const Header = () => {
   return (
@@ -22,8 +21,8 @@ export const Header = () => {
         </Link>
       </nav>
       <div className="justify-around items-center flex w-[180px]">
-        <Link href="/sign-in">
-          <a>Sign In</a>
+        <Link href="/sign-up">
+          <a>Sign Up</a>
         </Link>
         <Link href="/log-in">
           <a className="border-[1px] border-black rounded-md px-3 py-[5px]">

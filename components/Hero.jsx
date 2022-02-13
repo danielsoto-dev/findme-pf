@@ -1,5 +1,3 @@
-//react functional component hero
-import React from "react";
 import { Button } from "./Button";
 import { Card } from "./Card";
 import Image from "next/image";
@@ -19,7 +17,7 @@ export const Hero = () => {
       <Button className="block mx-auto text-xl mt-10">Register here!</Button>
 
       <h3 className="text-2xl mb-5 mt-10">Missing people in your area</h3>
-      <div className="flex justify-around p-5 border-black border-[1px]">
+      <div className="flex justify-around gap-x-5 p-5 border-black border-[1px]">
         <Card />
         <Card />
         <Card />
