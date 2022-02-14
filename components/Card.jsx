@@ -1,5 +1,9 @@
 import Image from "next/image";
-export const Card = () => {
+export const Card = ({
+  fullName = "Daniel Soto Jaimes",
+  age = 18,
+  location = "Barranquilla, Atlántico",
+}) => {
   return (
     <div className="max-w-sm p-3 rounded overflow-hidden border-black border-[1px]">
       <Image
@@ -10,7 +14,9 @@ export const Card = () => {
         alt="Afro guy playing the bongo"
       />
       <div className="px-6 py-4">
-        <div className="font-bold text-xl mb-2">The Coldest Sunset</div>
+        <div className="font-bold text-xl mb-2">{fullName}</div>
+        <p className="text-md">{age}</p>
+        <p className=" text-md mb-2 text-blue-500 italic">{location}</p>
         <p className="text-gray-700 text-base">
           Lorem ipsum dolor sit amet, consectetur adipisicing elit. Voluptatibus
           quia, nulla! Maiores et perferendis eaque, exercitationem praesentium
