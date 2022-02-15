@@ -5,12 +5,12 @@ export const Card = ({
   location = "Barranquilla, Atlántico",
 }) => {
   return (
-    <div className="max-w-sm p-3 rounded overflow-hidden border-black border-[1px]">
+    <div className="mx-auto max-w-sm p-3 rounded overflow-hidden shadow-md">
       <Image
         className="w-full object-cover"
         src="https://images.unsplash.com/photo-1578961771886-97d51aee46bc?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=832&q=80"
-        width={200}
-        height={200}
+        width={150}
+        height={150}
         alt="Afro guy playing the bongo"
       />
       <div className="px-6 py-4">
@@ -23,17 +23,6 @@ export const Card = ({
           nihil. :D
         </p>
       </div>
-      {/* <div className="px-6 pt-4 pb-2">
-        <span className="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2">
-          #photography
-        </span>
-        <span className="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2">
-          #travel
-        </span>
-        <span className="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2">
-          #winter
-        </span>
-      </div> */}
     </div>
   );
 };

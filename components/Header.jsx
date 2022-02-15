@@ -4,7 +4,7 @@ export const Header = () => {
   return (
     <header className="flex justify-around items-center h-[80px]">
       <h1 className="text-4xl">
-        <Link href="/">
+        <Link animated={true} href="/">
           Find<span className="text-blue-500">Me</span>
         </Link>
       </h1>

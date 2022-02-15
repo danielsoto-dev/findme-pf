@@ -1,6 +1,46 @@
 import { Button } from "./Button";
-import { Card } from "./Card";
+import {
+  CarouselProvider,
+  Slider,
+  Slide,
+  ButtonBack,
+  ButtonNext,
+} from "pure-react-carousel";
+import "pure-react-carousel/dist/react-carousel.es.css";
 import Image from "next/image";
+import { Card } from "./Card";
+const peopleInfo = [
+  {
+    fullName: "Daniel Soto Jaimes",
+    age: 18,
+    location: "Barranquilla, Atlántico",
+  },
+  {
+    fullName: "Daniel Soto Jaimes",
+    age: 18,
+    location: "Barranquilla, Atlántico",
+  },
+  {
+    fullName: "Daniel Soto Jaimes",
+    age: 18,
+    location: "Barranquilla, Atlántico",
+  },
+  {
+    fullName: "Daniel Soto Jaimes",
+    age: 18,
+    location: "Barranquilla, Atlántico",
+  },
+  {
+    fullName: "Daniel Soto Jaimes",
+    age: 18,
+    location: "Barranquilla, Atlántico",
+  },
+  {
+    fullName: "Daniel Soto Jaimes",
+    age: 18,
+    location: "Barranquilla, Atlántico",
+  },
+];
 export const Hero = () => {
   return (
     <div className="text-center mt-10">
@@ -13,16 +53,37 @@ export const Hero = () => {
         width={900}
         height={400}
       />
-
       <Button className="block mx-auto text-xl mt-10">Register here!</Button>
-
-      <h3 className="text-2xl mb-5 mt-10">Missing people in your area</h3>
-      <div className="flex justify-around gap-x-5 p-5 border-black border-[1px]">
-        <Card />
-        <Card />
-        <Card />
-        <Card />
-      </div>
+      <h3 className="text-2xl mb-5 mt-10">Missing people in your area</h3>{" "}
+      <CarouselProvider
+        // infinite
+        naturalSlideWidth={384}
+        naturalSlideHeight={390}
+        visibleSlides={3}
+        totalSlides={peopleInfo.length}
+        // isIntrinsicHeight
+      >
+        <Slider>
+          {peopleInfo.map((person, index) => {
+            return (
+              //Change the key to the ID of the person
+              <Slide index={index} key={person.fullName + index}>
+                <Card
+                  fullName={person.fullName}
+                  age={person.age}
+                  location={person.location}
+                />
+              </Slide>
+            );
+          })}
+        </Slider>
+        <ButtonBack>
+          <p className="text-xl font-bold">Back</p>
+        </ButtonBack>
+        <ButtonNext>
+          <p className="ml-3 text-xl font-bold">Next</p>
+        </ButtonNext>
+      </CarouselProvider>
     </div>
   );
 };

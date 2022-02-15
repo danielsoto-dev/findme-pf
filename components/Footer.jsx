@@ -1,4 +1,4 @@
-import Link from "next/link";
+import { Link } from "./Link";
 export const Footer = () => {
   return (
     <footer className="p-[24px]">
@@ -6,9 +6,7 @@ export const Footer = () => {
         <section>
           <h1 className="text-4xl">
             <Link href="/">
-              <a>
-                Find<span className="text-blue-500">Me</span>
-              </a>
+              Find<span className="text-blue-500">Me</span>
             </Link>
           </h1>
         </section>
@@ -16,14 +14,10 @@ export const Footer = () => {
           <h4 className="text-xl font-bold">Navigation</h4>
           <ul>
             <li>
-              <Link href="/about">
-                <a>About Us</a>
-              </Link>
+              <Link href="/about">About Us</Link>
             </li>
             <li>
-              <Link href="/contact-us">
-                <a>Contact Us</a>
-              </Link>
+              <Link href="/contact-us">Contact Us</Link>
             </li>
           </ul>
         </section>
@@ -32,14 +26,10 @@ export const Footer = () => {
           <h4 className="text-xl font-bold">Access</h4>
           <ul>
             <li>
-              <Link href="/sign-up">
-                <a>Sign Up</a>
-              </Link>
+              <Link href="/sign-up">Sign Up</Link>
             </li>
             <li>
-              <Link href="/log-in">
-                <a>Log In</a>
-              </Link>
+              <Link href="/log-in">Log In</Link>
             </li>
           </ul>
         </section>
