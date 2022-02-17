@@ -17,6 +17,7 @@ export const Header = () => {
         <Link href="/sign-up">Sign Up</Link>
         <Link
           href="/log-in"
+          animated={false}
           className="border-[1px] border-black rounded-md px-3 py-[5px]"
         >
           Log In
