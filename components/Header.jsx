@@ -1,6 +1,7 @@
 import Image from "next/image";
 import { Link } from "./Link";
 import { useUser } from "@auth0/nextjs-auth0";
+import { DropDown } from "./DropDown";
 export const Header = () => {
   const { user, error, isLoading } = useUser();
   console.log(user);
@@ -11,12 +12,11 @@ export const Header = () => {
           Find<span className="text-blue-500">Me</span>
         </Link>
       </h1>
-
       <nav className="justify-around items-center flex w-[180px]">
         <Link href="/about">About Us</Link>
         <Link href="/contact-us">Contact Us</Link>
       </nav>
-      <div className="justify-around items-center flex w-[180px]">
+      <div className="justify-around items-center flex min-w-[240px]">
         {user && !isLoading && !error ? (
           <LoggedIn user={user} />
         ) : (
@@ -43,10 +43,14 @@ const NotLoggedIn = () => {
 const LoggedIn = ({ user }) => {
   return (
     <>
+      <DropDown />
       <span className="text-blue-500 mr-2">{user.email}</span>
-      <span className="text-blue-500">
-        <a href="/api/auth/logout">Logout</a>
-      </span>
+      <Image
+        className="rounded-full"
+        src={user.picture}
+        width="30px"
+        height="30px"
+      />
     </>
   );
 };
