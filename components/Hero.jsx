@@ -61,7 +61,7 @@ export const Hero = () => {
         naturalSlideHeight={400}
         visibleSlides={3}
         totalSlides={peopleInfo.length}
-        // isIntrinsicHeight this fixes the height of the carousel, even when it cant contain all the slides
+        isIntrinsicHeight
       >
         <Slider>
           {peopleInfo.map((person, index) => {
