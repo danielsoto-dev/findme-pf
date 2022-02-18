@@ -1,15 +1,22 @@
 import { Menu, Transition } from "@headlessui/react";
 import { Fragment, useEffect, useRef, useState } from "react";
-
-export function DropDown() {
+import Image from "next/image";
+const imageSize = "25px";
+const ANIMATION = "transition duration-300 ease-out n";
+export function DropDown({ user }) {
   return (
-    <div className="z-10 mr-4">
-      <Menu as="div" className="relative inline-block text-left">
-        <div>
-          <Menu.Button className="inline-flex justify-center w-full px-4 py-2 text-sm font-medium text-white bg-blue-500 rounded-md  hover:bg-opacity-70 focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75">
-            Profile
-          </Menu.Button>
-        </div>
+    <div className="z-10">
+      <Menu as="div" className="relative h-[30px] w-[30px] ">
+        <Menu.Button
+          className={`inline-flex items-center justify-center w-full rounded-full h-full hover:bg-neutral-600 hover:bg-opacity-20 ${ANIMATION}`}
+        >
+          <Image
+            className="rounded-full"
+            src={user.picture}
+            width={imageSize}
+            height={imageSize}
+          />
+        </Menu.Button>
         <Transition
           as={Fragment}
           enter="transition ease-out duration-100"

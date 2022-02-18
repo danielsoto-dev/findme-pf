@@ -43,14 +43,8 @@ const NotLoggedIn = () => {
 const LoggedIn = ({ user }) => {
   return (
     <>
-      <DropDown />
-      <span className="text-blue-500 mr-2">{user.email}</span>
-      <Image
-        className="rounded-full"
-        src={user.picture}
-        width="30px"
-        height="30px"
-      />
+      <span className="text-blue-500 mr-2">{user.name}</span>
+      <DropDown user={user} />
     </>
   );
 };
