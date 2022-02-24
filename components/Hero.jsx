@@ -11,6 +11,7 @@ import "pure-react-carousel/dist/react-carousel.es.css";
 import Image from "next/image";
 import { Card } from "./Card";
 import { useEffect, useRef, useState } from "react";
+import { useWidthObserver } from "../hooks/useSizeObserver";
 const peopleInfo = [
   {
     fullName: "Daniel Soto Jaimes",
@@ -44,28 +45,23 @@ const peopleInfo = [
   },
 ];
 export const Hero = () => {
-  const sliderRef = useRef();
-  //mirar si esto se puede sacar en un custom hook
-  const [width, setWidth] = useState(sliderRef.current?.clientWidth);
-  // We devide the width by the card size to get the number of cards that we can show in the carousel
-  const visibleSlides = Math.floor(width / cardSize.width);
-  console.log(visibleSlides);
-  const getSliderContainerWidth = () => {
-    const newWidth = sliderRef.current.clientWidth;
-    setWidth(newWidth);
-  };
+  const sliderRef = useRef(null);
+  const { width, setWidth } = useWidthObserver({ targetRef: sliderRef });
   useEffect(() => {
-    console.log("useEffect run");
-    window.addEventListener("resize", getSliderContainerWidth);
-    return () => {
-      window.removeEventListener("resize", getSliderContainerWidth);
-    };
+    //fixes the initial state of the slider, when the component is mounted
+    // otherwise the width will be undefined
+    if (!width) {
+      let newWidth = document.querySelector("#slider-wrapper").clientWidth;
+      setWidth(newWidth);
+    }
   }, []);
 
+  const visibleSlides = Math.floor(width / cardSize.width);
   return (
     <div className="text-center mt-10">
       <h2 className="text-2xl mb-5 ">
         We are an website built to connect people!
+        {slides}
       </h2>
       <Image
         alt="A colorfull Colombian Street"
@@ -83,7 +79,7 @@ export const Hero = () => {
         totalSlides={peopleInfo.length}
         isIntrinsicHeight
       >
-        <div ref={sliderRef} className="slider-container">
+        <div id="slider-wrapper" ref={sliderRef}>
           <Slider>
             {peopleInfo.map((person, index) => {
               return (
