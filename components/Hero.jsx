@@ -61,7 +61,6 @@ export const Hero = () => {
     <div className="text-center mt-10">
       <h2 className="text-2xl mb-5 ">
         We are an website built to connect people!
-        {slides}
       </h2>
       <Image
         alt="A colorfull Colombian Street"
