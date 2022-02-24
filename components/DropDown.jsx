@@ -6,7 +6,7 @@ const ANIMATION = "transition duration-300 ease-out n";
 export function DropDown({ user }) {
   return (
     <div className="z-10">
-      <Menu as="div" className="relative h-[30px] w-[30px] ">
+      <Menu as="div" className="mx-4 relative h-[30px] w-[30px] ">
         <Menu.Button
           className={`inline-flex items-center justify-center w-full rounded-full h-full hover:bg-neutral-600 hover:bg-opacity-20 ${ANIMATION}`}
         >

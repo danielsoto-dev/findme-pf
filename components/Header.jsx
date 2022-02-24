@@ -4,7 +4,7 @@ import { useUser } from "@auth0/nextjs-auth0";
 import { DropDown } from "./DropDown";
 export const Header = () => {
   const { user, error, isLoading } = useUser();
-  console.log(user);
+  // console.log(user);
   return (
     <header className="flex justify-around items-center h-[80px]">
       <h1 className="text-4xl">
@@ -48,7 +48,7 @@ const NotLoggedIn = () => {
 const LoggedIn = ({ user }) => {
   return (
     <>
-      <span className="text-blue-500 mr-2">{user.name}</span>
+      <span className="text-blue-500 mx-4">{user.name}</span>
       <DropDown user={user} />
     </>
   );
