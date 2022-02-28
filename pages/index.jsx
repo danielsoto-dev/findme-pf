@@ -3,6 +3,7 @@ import { Header } from "../components/Header";
 import { Hero } from "../components/Hero";
 import { Footer } from "../components/Footer";
 import styles from "../styles/Home.module.css";
+import { PeopleMissing } from "../components/PeopleMissing";
 
 export default function Home() {
   return (
@@ -18,6 +19,7 @@ export default function Home() {
       </Head>
       <Header />
       <Hero />
+      <PeopleMissing />
       <Footer />
     </div>
   );

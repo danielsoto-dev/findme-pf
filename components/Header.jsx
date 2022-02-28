@@ -4,7 +4,7 @@ import { useUser } from "@auth0/nextjs-auth0";
 import { DropDown } from "./DropDown";
 export const Header = () => {
   const { user, error, isLoading } = useUser();
-  // console.log(user);
+  console.log(user);
   return (
     <header className="flex justify-around items-center h-[80px]">
       <h1 className="text-4xl">
@@ -32,7 +32,7 @@ export const Header = () => {
 const NotLoggedIn = () => {
   return (
     <>
-      <a className="mx-4 underline-effect" href="/sign-up">
+      <a className="mx-4 underline-effect" href="/api/signup">
         Sign Up
       </a>
       <a

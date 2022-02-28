@@ -26,10 +26,10 @@ export const Footer = () => {
           <h4 className="text-xl font-bold">Access</h4>
           <ul>
             <li>
-              <Link href="/sign-up">Sign Up</Link>
+              <Link href="api/signup">Sign Up</Link>
             </li>
             <li>
-              <Link href="/log-in">Log In</Link>
+              <Link href="/api/auth/login">Log In</Link>
             </li>
           </ul>
         </section>
