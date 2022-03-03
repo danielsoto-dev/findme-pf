@@ -4,8 +4,10 @@ import { Hero } from "../components/Hero";
 import { Footer } from "../components/Footer";
 import styles from "../styles/Home.module.css";
 import { PeopleMissing } from "../components/PeopleMissing";
-
+import { useMobileNavbar } from "../contexts/mobile-navbar";
+import { MobileMenuList } from "../components/MobileNavbar";
 export default function Home() {
+  const { isOpen } = useMobileNavbar();
   return (
     <div className={styles.container}>
       <Head>
@@ -17,7 +19,7 @@ export default function Home() {
         />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <Header />
+      <Header /> {isOpen && <MobileMenuList />}
       <Hero />
       <PeopleMissing />
       <Footer />
