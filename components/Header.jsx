@@ -46,9 +46,8 @@ const NotLoggedIn = () => {
         Sign Up
       </a>
       <a
-        className="mx-4"
         href="/api/auth/login"
-        className="border-[1px] border-black rounded-md px-3 py-[5px]"
+        className="border-[1px]  transition duration-150 ease-in border-black rounded-md px-3 py-[5px] focus:bg-black focus:text-white hover:bg-black hover:text-white"
       >
         Log In
       </a>

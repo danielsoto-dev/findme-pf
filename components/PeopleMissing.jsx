@@ -7,7 +7,7 @@ import {
 } from "pure-react-carousel";
 import { cardSize } from "../config/sizes";
 import { Card } from "./Card";
-import { useEffect, useRef, useLayoutEffect } from "react";
+import { useRef, useLayoutEffect } from "react";
 import { useWidthObserver } from "../hooks/useSizeObserver";
 const peopleInfo = [
   {

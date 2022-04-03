@@ -31,6 +31,18 @@ export function DropDown({ user }) {
               <Menu.Item>
                 {({ active }) => (
                   <a
+                    href="profile"
+                    className={`${
+                      active ? "bg-blue-500 text-white" : "text-gray-900"
+                    } group flex rounded-md items-center w-full px-2 py-2 text-sm`}
+                  >
+                    Profile
+                  </a>
+                )}
+              </Menu.Item>
+              <Menu.Item>
+                {({ active }) => (
+                  <a
                     href="/api/auth/logout"
                     className={`${
                       active ? "bg-blue-500 text-white" : "text-gray-900"
