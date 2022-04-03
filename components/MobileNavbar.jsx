@@ -9,12 +9,6 @@ export const MobileNavbar = ({
   className,
   ...props
 }) => {
-  useEffect(() => {
-    return () => {
-      onUnmount();
-    };
-  }, []);
-
   return (
     <button {...props} onClick={onClick} className={`${className}`}>
       <FiMenu className="text-4xl" />
