@@ -3,7 +3,7 @@ import { Fragment, useEffect, useRef, useState } from "react";
 import Image from "next/image";
 const imageSize = "25px";
 const ANIMATION = "transition duration-300 ease-out n";
-export function DropDown({ user }) {
+export const DropDown = ({ user }) => {
   return (
     <div className="z-10">
       <Menu as="div" className="mx-4 relative h-[30px] w-[30px] ">
@@ -58,7 +58,7 @@ export function DropDown({ user }) {
       </Menu>
     </div>
   );
-}
+};
 
 function EditInactiveIcon(props) {
   return (

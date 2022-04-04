@@ -47,7 +47,7 @@ const NotLoggedIn = () => {
       </a>
       <a
         href="/api/auth/login"
-        className="border-[1px]  transition duration-150 ease-in border-black rounded-md px-3 py-[5px] focus:bg-black focus:text-white hover:bg-black hover:text-white"
+        className="border-[1px] transition duration-150 ease-in border-black rounded-md px-3 py-[5px] focus:bg-black focus:text-white hover:bg-black hover:text-white"
       >
         Log In
       </a>
@@ -57,6 +57,9 @@ const NotLoggedIn = () => {
 const LoggedIn = ({ user }) => {
   return (
     <>
+      <Link href="recommended" className="mx-4">
+        Find People
+      </Link>
       <span className="text-blue-500 mx-4">{user.name}</span>
       <DropDown user={user} />
     </>
