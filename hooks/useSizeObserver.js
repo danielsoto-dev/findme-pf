@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState, useCallback } from "react";
+import { useEffect, useState } from "react";
 export const useWidthObserver = ({ targetRef }) => {
   //mirar si esto se puede sacar en un custom hook
   const [width, setWidth] = useState(targetRef.current?.clientWidth);
