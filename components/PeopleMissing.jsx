@@ -9,6 +9,7 @@ import { cardSize } from "../config/sizes";
 import { Card } from "./Card";
 import { useRef, useLayoutEffect } from "react";
 import { useWidthObserver } from "../hooks/useSizeObserver";
+import { HiOutlineChevronLeft, HiOutlineChevronRight } from "react-icons/hi";
 const peopleInfo = [
   {
     fullName: "Daniel Soto Jaimes",
@@ -64,9 +65,10 @@ export const PeopleMissing = () => {
         visibleSlides={visibleSlides}
         totalSlides={peopleInfo.length}
         isIntrinsicHeight
+        className="relative"
       >
-        <div id="slider-wrapper" ref={sliderRef}>
-          <Slider>
+        <div id="slider-wrapper" className="px-20" ref={sliderRef}>
+          <Slider className="p-2" classNameTray="gap-8">
             {peopleInfo.map((person, index) => {
               return (
                 //Change the key to the ID of the person
@@ -81,12 +83,18 @@ export const PeopleMissing = () => {
             })}
           </Slider>
         </div>
-        <ButtonBack>
-          <p className="text-xl font-bold">Back</p>
-        </ButtonBack>
-        <ButtonNext>
-          <p className="ml-3 text-xl font-bold">Next</p>
-        </ButtonNext>
+        <div className="text-5xl">
+          <ButtonBack className="absolute left-5 top-[50%]">
+            <p>
+              <HiOutlineChevronLeft />
+            </p>
+          </ButtonBack>
+          <ButtonNext className="absolute right-5 top-[50%]">
+            <p>
+              <HiOutlineChevronRight />
+            </p>
+          </ButtonNext>
+        </div>
       </CarouselProvider>
     </div>
   );

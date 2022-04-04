@@ -11,7 +11,7 @@ export const Card = ({
   return (
     <div
       onClick={handleOnClick}
-      className="hover:cursor-pointer mx-auto max-w-sm p-3 rounded overflow-hidden shadow-md text-center  hover:bg-gray-100 "
+      className="hover:cursor-pointer p-3 rounded overflow-hidden shadow-lg text-center  hover:bg-gray-100 "
     >
       <Image
         className="w-full object-cover"
