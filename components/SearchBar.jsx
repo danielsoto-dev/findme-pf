@@ -3,7 +3,7 @@ import { TextInput } from "./TextInput";
 export const SearchBar = () => {
   const [formFilters, setFormFilters] = useState({
     fullName: "",
-    age: null,
+    age: "",
     location: "",
   });
   const handleChange = (e) => {

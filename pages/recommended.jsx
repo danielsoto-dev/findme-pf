@@ -84,8 +84,8 @@ const RecommendedGrid = () => {
   return (
     <>
       <div className="grid row-auto grid-cols-[repeat(auto-fill,minmax(300px,1fr))] gap-4 ">
-        {peopleInfo.map((person) => {
-          return <Card {...person} />;
+        {peopleInfo.map((person, idx) => {
+          return <Card key={idx} {...person} />;
         })}
       </div>
     </>

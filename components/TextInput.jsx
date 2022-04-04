@@ -13,7 +13,7 @@ export const TextInput = ({
   ...props
 }) => {
   return (
-    <div class="relative z-0 ">
+    <div className="relative z-0 ">
       <input
         id={name}
         type={type}
