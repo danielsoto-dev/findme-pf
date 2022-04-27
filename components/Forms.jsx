@@ -27,7 +27,7 @@ export const Forms = () => {
       }}
     >
       {(formik) => (
-        <div className="flex flex-col items-center">
+        <div className="flex flex-col items-center mt-auto">
           <h1 className="font-VarelaRound text-first-color text-3xl m-2">
             Complete la siguiente información
           </h1>

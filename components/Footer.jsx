@@ -1,7 +1,7 @@
 import { Link } from "./Link";
-export const Footer = () => {
+export const Footer = ({ className }) => {
   return (
-    <footer className="p-[24px]">
+    <footer className={`p-[24px] ${className}`}>
       <nav className="grid grid-cols-3">
         <section>
           <h1 className="text-4xl">
