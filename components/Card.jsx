@@ -1,6 +1,6 @@
 import Image from "next/image";
 export const Card = ({
-  fullName = "Daniel Soto Jaimes",
+  fullName = "John Doe",
   age = 18,
   location = "Barranquilla, Atlántico",
   percentage = 0.7,

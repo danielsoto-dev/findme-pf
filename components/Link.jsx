@@ -7,7 +7,7 @@ export const Link = ({
   ...props
 }) => {
   if (animated) {
-    className = `${className} underline-effect`;
+    className = `underline-effect ${className}`;
   }
   return (
     <RouterLink href={href}>

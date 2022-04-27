@@ -4,62 +4,62 @@ import { Header } from "../components/Header";
 import { SearchBar } from "../components/SearchBar";
 const peopleInfo = [
   {
-    fullName: "Daniel Soto Jaimes",
+    fullName: "John Doe",
     age: 18,
     location: "Barranquilla, Atlántico",
   },
   {
-    fullName: "Daniel Soto Jaimes",
+    fullName: "John Doe",
     age: 18,
     location: "Barranquilla, Atlántico",
   },
   {
-    fullName: "Daniel Soto Jaimes",
+    fullName: "John Doe",
     age: 18,
     location: "Barranquilla, Atlántico",
   },
   {
-    fullName: "Daniel Soto Jaimes",
+    fullName: "John Doe",
     age: 18,
     location: "Barranquilla, Atlántico",
   },
   {
-    fullName: "Daniel Soto Jaimes",
+    fullName: "John Doe",
     age: 18,
     location: "Barranquilla, Atlántico",
   },
   {
-    fullName: "Daniel Soto Jaimes",
+    fullName: "John Doe",
     age: 18,
     location: "Barranquilla, Atlántico",
   },
   {
-    fullName: "Daniel Soto Jaimes",
+    fullName: "John Doe",
     age: 18,
     location: "Barranquilla, Atlántico",
   },
   {
-    fullName: "Daniel Soto Jaimes",
+    fullName: "John Doe",
     age: 18,
     location: "Barranquilla, Atlántico",
   },
   {
-    fullName: "Daniel Soto Jaimes",
+    fullName: "John Doe",
     age: 18,
     location: "Barranquilla, Atlántico",
   },
   {
-    fullName: "Daniel Soto Jaimes",
+    fullName: "John Doe",
     age: 18,
     location: "Barranquilla, Atlántico",
   },
   {
-    fullName: "Daniel Soto Jaimes",
+    fullName: "John Doe",
     age: 18,
     location: "Barranquilla, Atlántico",
   },
   {
-    fullName: "Daniel Soto Jaimes",
+    fullName: "John Doe",
     age: 18,
     location: "Barranquilla, Atlántico",
   },

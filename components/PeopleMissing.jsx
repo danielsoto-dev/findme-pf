@@ -7,7 +7,7 @@ import {
 } from "pure-react-carousel";
 import { cardSize } from "../config/sizes";
 import { Card } from "./Card";
-import { useRef, useLayoutEffect } from "react";
+import { useRef, useEffect } from "react";
 import { useWidthObserver } from "../hooks/useSizeObserver";
 import { HiOutlineChevronLeft, HiOutlineChevronRight } from "react-icons/hi";
 const peopleInfo = [
@@ -45,7 +45,7 @@ const peopleInfo = [
 export const PeopleMissing = () => {
   const sliderRef = useRef(null);
   const { width, setWidth } = useWidthObserver({ targetRef: sliderRef });
-  useLayoutEffect(() => {
+  useEffect(() => {
     //fixes the initial state of the slider, when the component is mounted
     // otherwise the width will be undefined
     if (!width) {
