@@ -1,10 +1,23 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Formik, Form } from "formik";
 import { SchemaPersonalData } from "../utils/yup-validations";
 import { FormikSelect } from "./FormikSelect";
 import { FormikInput } from "./FormikInput";
 
 export const Forms = () => {
+  const [colombiaInfo, setColombiaInfo] = useState([]);
+  const [departments, setDepartments] = useState([]);
+  useEffect(
+    () =>
+      fetch("/api/colombia")
+        .then((response) => response.json())
+        .then((data) => {
+          const cleanDepartments = data.map((i) => i.departamento.normalize());
+          setColombiaInfo(data);
+          setDepartments(cleanDepartments);
+        }),
+    []
+  );
   return (
     <Formik
       initialValues={{
@@ -101,13 +114,22 @@ export const Forms = () => {
               </label>
               <FormikSelect
                 styles="col-span"
-                name="country"
-                options={["Hola", "muno"]}
+                name="departmentOfBirth"
+                options={departments}
               />
-              <FormikSelect name="city" options={["Hola", "muno"]} />
+              <FormikSelect
+                name="cityOfBirth"
+                options={
+                  colombiaInfo.find(
+                    (i) =>
+                      i.departamento.normalize() ==
+                      formik.values.departmentOfBirth
+                  )?.ciudades
+                }
+              />
             </div>
             <button
-              className="bg-first-color text-white font-medium text-OpenSans rounded-md p-2 min-w-full col-span-4"
+              className="bg-black text-white font-medium text-OpenSans rounded-md p-2 min-w-full col-span-4"
               type="submit"
             >
               Registrar

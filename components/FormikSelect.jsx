@@ -1,8 +1,9 @@
 import React from "react";
 import { ErrorMessage, useField } from "formik";
 
-export const FormikSelect = ({ options, styles, label, ...props }) => {
+export const FormikSelect = ({ options = [], styles, label, ...props }) => {
   const [field, meta] = useField(props);
+  console.log(field, meta);
   return (
     <div className={`flex flex-col ${styles}`}>
       <label
@@ -11,6 +12,7 @@ export const FormikSelect = ({ options, styles, label, ...props }) => {
       >
         {label}
       </label>
+
       <select
         className={`border rounded bg-slate-50 h-7 ${
           meta.touched && meta.error && "border-2 border-rose-600"
@@ -19,6 +21,9 @@ export const FormikSelect = ({ options, styles, label, ...props }) => {
         {...props}
         autoComplete="off"
       >
+        <option value="" disabled>
+          --select--
+        </option>
         {options.map((opt, index) => (
           <option key={index}>{opt}</option>
         ))}
