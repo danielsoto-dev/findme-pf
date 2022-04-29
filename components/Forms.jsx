@@ -119,6 +119,7 @@ export const Forms = () => {
               />
               <FormikSelect
                 name="cityOfBirth"
+                disabled={formik.values.departmentOfBirth === ""}
                 options={
                   colombiaInfo.find(
                     (i) =>

@@ -15,7 +15,6 @@ export const SearchBar = () => {
   };
   return (
     <form className="mb-20 flex items-center justify-end gap-6 px-20" action="">
-      {" "}
       <TextInput
         type="text"
         onChange={handleChange}

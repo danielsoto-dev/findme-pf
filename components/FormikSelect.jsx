@@ -14,7 +14,7 @@ export const FormikSelect = ({ options = [], styles, label, ...props }) => {
       </label>
 
       <select
-        className={`border rounded bg-slate-50 h-7 ${
+        className={`disabled:opacity-50 border rounded bg-slate-50 h-7 ${
           meta.touched && meta.error && "border-2 border-rose-600"
         }`}
         {...field}
