@@ -10,8 +10,12 @@
   "dependencies": {
     "@auth0/nextjs-auth0": "^1.7.0",
     "@headlessui/react": "^1.5.0",
+    "aws-sdk": "^2.1133.0",
+    "dotenv": "^16.0.1",
     "formik": "^2.2.9",
+    "multer": "^1.4.4",
     "next": "^12.1.4",
+    "next-connect": "^0.12.2",
     "pure-react-carousel": "^1.28.1",
     "react": "17.0.2",
     "react-dom": "17.0.2",

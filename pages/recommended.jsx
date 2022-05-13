@@ -66,7 +66,6 @@ const peopleInfo = [
 ];
 const Recommended = () => {
   const { user, error, isLoading } = useUser();
-  console.log(user);
   return (
     <>
       <Header />{" "}

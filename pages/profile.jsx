@@ -1,6 +1,7 @@
 import { useUser } from "@auth0/nextjs-auth0";
 import { Header } from "../components/Header";
 import { Footer } from "../components/Footer";
+import { AddFace } from "../components/AddFace";
 import { Link } from "../components/Link";
 import Image from "next/image";
 const lookingFOR = [
@@ -52,7 +53,7 @@ const Profile = () => {
             </p>
             <p>{user?.email}</p>
           </div>
-          <div>
+          <div id="add-new-person">
             <h2 className="text-2xl mb-6">Your current looking for...</h2>
             <div className="mt-4 max-h-[200px] overflow-x-auto">
               {lookingFOR.map((item) => {
@@ -73,6 +74,7 @@ const Profile = () => {
             >
               Add new person +
             </Link>
+            <AddFace />
           </div>
         </div>
         <Footer className="mt-auto" />
