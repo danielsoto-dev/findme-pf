@@ -60,8 +60,8 @@ export const SearchFace = () => {
         {faces.map(
           ({ Face: { ExternalImageId, FaceId, Confidence }, Similarity }) => (
             <li key={FaceId}>
-              {ExternalImageId} ->
-              {Similarity} similarity and a confidence of {Confidence}
+              {ExternalImageId} ={Similarity} similarity and a confidence of{" "}
+              {Confidence}
             </li>
           )
         )}
