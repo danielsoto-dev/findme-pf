@@ -2,7 +2,7 @@ import React, { useRef } from "react";
 
 const fetchPost = async ({ current: form }) => {
   try {
-    const response = await fetch("/api/aws/addFace", {
+    const response = await fetch("/api/aws/uploadS3", {
       method: "POST",
       body: new FormData(form),
     });
@@ -22,8 +22,6 @@ const handleSubmit = async (e, formRef) => {
 };
 export const AddFace = () => {
   const formRef = useRef();
-  // const [file, setFile] = React.useState(null);
-
   return (
     <>
       <h2 className="text-xl mb-6">Add Face to collection</h2>

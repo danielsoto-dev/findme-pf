@@ -16,7 +16,7 @@ const fetchPost = async ({ current: form }) => {
 const handleSubmit = async (e, formRef, setFaces) => {
   console.log("handleSubmit");
   e.preventDefault();
-  const { faceMatches } = await fetchPost(formRef);
+  const { faceMatches = [] } = await fetchPost(formRef);
   setFaces(faceMatches);
 };
 export const SearchFace = () => {

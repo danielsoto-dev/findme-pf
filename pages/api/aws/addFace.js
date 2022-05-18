@@ -2,7 +2,6 @@ import nextConnect from "next-connect";
 import multer from "multer";
 import { addFaceToCollection } from "../../../utils/rekognition";
 const upload = multer();
-
 const apiRoute = nextConnect({
   onError(error, req, res) {
     res
