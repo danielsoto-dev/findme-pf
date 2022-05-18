@@ -11,6 +11,6 @@ export const useWidthObserver = ({ targetRef }) => {
       window.removeEventListener("resize", getSliderContainerWidth);
     };
   }, []);
-  console.log(targetRef, width);
+  // console.log(targetRef, width);
   return { width, setWidth };
 };

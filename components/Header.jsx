@@ -3,11 +3,17 @@ import { useUser } from "@auth0/nextjs-auth0";
 import { DropDown } from "./DropDown";
 import { useMobileNavbar } from "../contexts/mobile-navbar";
 import { MobileNavbar } from "./MobileNavbar";
+import { useEffect } from "react";
 const mobileStyles = `sm:flex`;
-
+import { checkIfUserIsInDatabase } from "../lib/dbActions";
 export const Header = () => {
   const { user, error, isLoading } = useUser();
+  console.log(user);
   const { isOpen, toggle, setIsOpen } = useMobileNavbar();
+  useEffect(() => {
+    checkIfUserIsInDatabase(user);
+  }, [user]);
+
   return (
     <header className="sticky top-0 md:static z-10 bg-white flex justify-around items-center h-[80px]">
       <h1 className="text-4xl">

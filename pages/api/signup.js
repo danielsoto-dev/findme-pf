@@ -1,6 +1,6 @@
 // api/signup.js
-import { handleLogin } from "@auth0/nextjs-auth0";
 
+import { handleLogin } from "@auth0/nextjs-auth0";
 export default async function signup(req, res) {
   try {
     await handleLogin(req, res, {

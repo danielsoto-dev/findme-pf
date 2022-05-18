@@ -35,7 +35,7 @@ const lookingFOR = [
 ];
 const Profile = () => {
   const { user, error, isLoading } = useUser();
-  console.log(user);
+  console.log("Loged user -> :", user);
   return (
     <>
       <Header />
