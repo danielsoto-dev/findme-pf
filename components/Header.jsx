@@ -4,14 +4,24 @@ import { DropDown } from "./DropDown";
 import { useMobileNavbar } from "../contexts/mobile-navbar";
 import { MobileNavbar } from "./MobileNavbar";
 import { useEffect } from "react";
+import { useRouter } from "next/router";
+
 const mobileStyles = `sm:flex`;
 import { checkIfUserIsInDatabase } from "../lib/dbActions";
 export const Header = () => {
   const { user, error, isLoading } = useUser();
+  const router = useRouter();
   console.log(user);
   const { isOpen, toggle, setIsOpen } = useMobileNavbar();
-  useEffect(() => {
-    checkIfUserIsInDatabase(user);
+  useEffect(async () => {
+    if (user) {
+      const data = await checkIfUserIsInDatabase(user);
+      const { hasFilledProfile } = data;
+      if (!hasFilledProfile) {
+        console.log("data ->", data);
+        router.push("/register");
+      }
+    }
   }, [user]);
 
   return (

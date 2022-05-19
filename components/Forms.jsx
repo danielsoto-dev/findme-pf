@@ -3,10 +3,11 @@ import { Formik, Form } from "formik";
 import { SchemaPersonalData } from "../utils/yup-validations";
 import { FormikSelect } from "./FormikSelect";
 import { FormikInput } from "./FormikInput";
-
+import { useUser } from "@auth0/nextjs-auth0";
 export const Forms = () => {
   const [colombiaInfo, setColombiaInfo] = useState([]);
   const [departments, setDepartments] = useState([]);
+  const { user, error, isLoading } = useUser();
   useEffect(
     () =>
       fetch("/api/colombia")
@@ -35,8 +36,14 @@ export const Forms = () => {
         address: "",
       }}
       validationSchema={SchemaPersonalData}
-      onSubmit={(values) => {
-        console.log(values);
+      onSubmit={async (values) => {
+        const { email, sub } = user;
+        const res = await fetch("/api/users", {
+          method: "PUT",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ data: { ...values, email, sub } }),
+        });
+        console.log(res);
       }}
     >
       {(formik) => (
