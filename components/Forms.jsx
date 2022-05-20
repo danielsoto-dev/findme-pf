@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Formik, Form } from "formik";
-import { SchemaPersonalData } from "../utils/yup-validations";
+import { SchemaPersonalData } from "../utils/FormModels/yup-validations";
 import { FormikSelect } from "./FormikSelect";
 import { FormikInput } from "./FormikInput";
 import { useUser } from "@auth0/nextjs-auth0";
@@ -91,11 +91,11 @@ export const Forms = () => {
               name="gender"
               type="text"
             />
-            <FormikInput
+            <FormikSelect
               styles="lg:col-span-1 col-span-2"
               label="Tipo de documento"
               name="documentType"
-              type="text"
+              options={["CC", "TI", "CE", "Pasaporte"]}
             />
             <FormikInput
               styles="lg:col-span-1 col-span-2"

@@ -3,36 +3,7 @@ import { Header } from "../components/Header";
 import { Footer } from "../components/Footer";
 import { Link } from "../components/Link";
 import Image from "next/image";
-const lookingFOR = [
-  {
-    id: 1,
-    name: "Daniel Soto",
-  },
-  {
-    id: 2,
-    name: "Melyssa Soto",
-  },
-  {
-    id: 3,
-    name: "Sebastian Soto",
-  },
-  {
-    id: 4,
-    name: "Claudia Soto",
-  },
-  {
-    id: 5,
-    name: "Alvaro Soto",
-  },
-  {
-    id: 6,
-    name: "Alvaro Soto",
-  },
-  {
-    id: 7,
-    name: "Alvaro Soto",
-  },
-];
+
 const Profile = () => {
   const { user, error, isLoading } = useUser();
   console.log("Loged user -> :", user);
@@ -55,16 +26,9 @@ const Profile = () => {
           <div id="add-new-person">
             <h2 className="text-2xl mb-6">Your current looking for...</h2>
             <div className="mt-4 max-h-[200px] overflow-x-auto">
-              {lookingFOR.map((item) => {
-                return (
-                  <a
-                    key={item.id}
-                    className="cursor-pointer text-gray-900 hover:bg-blue-500 hover:text-white group flex rounded-md items-center w-full px-2 py-2 text-sm"
-                  >
-                    {item.name}
-                  </a>
-                );
-              })}
+              {
+                //  Display data from missing profiles for this user
+              }
             </div>
             <Link
               href="/register"
