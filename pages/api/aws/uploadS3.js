@@ -13,7 +13,7 @@ const apiRoute = nextConnect({
   },
 });
 
-apiRoute.use(upload.single("addFace"));
+apiRoute.use(upload.single("input-upload-img"));
 
 apiRoute.post((req, res) => {
   uploadImg(req, res);

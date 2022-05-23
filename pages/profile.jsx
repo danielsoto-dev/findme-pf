@@ -5,7 +5,7 @@ import { Link } from "../components/Link";
 import Image from "next/image";
 
 const Profile = () => {
-  const { user, error, isLoading } = useUser();
+  const { user } = useUser();
   console.log("Loged user -> :", user);
   return (
     <>
@@ -24,14 +24,14 @@ const Profile = () => {
             <p>{user?.email}</p>
           </div>
           <div id="add-new-person">
-            <h2 className="text-2xl mb-6">Your current looking for...</h2>
+            <h2 className="text-2xl mb-6">Your search profiles...</h2>
             <div className="mt-4 max-h-[200px] overflow-x-auto">
               {
                 //  Display data from missing profiles for this user
               }
             </div>
             <Link
-              href="/register"
+              href="/missing-register"
               animated={false}
               className="mt-8 max-w-[180px] mx-auto block text-center border-[1px] transition duration-150 ease-in border-black rounded-md px-3 py-[5px] focus:bg-black focus:text-white hover:bg-black hover:text-white"
             >

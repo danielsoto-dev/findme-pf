@@ -83,15 +83,16 @@ export const PersonalDataForm = () => {
           </label>
           <FormikSelect
             styles="col-span"
-            name="departmentOfBirth"
+            name="departmentOfLastSighting"
             options={departments}
           />
           <FormikSelect
-            name="cityOfBirth"
-            disabled={values.departmentOfBirth === ""}
+            name="cityOfLastSighting"
+            disabled={values.departmentOfLastSighting === ""}
             options={
               colombiaInfo.find(
-                (i) => i.departamento.normalize() == values.departmentOfBirth
+                (i) =>
+                  i.departamento.normalize() == values.departmentOfLastSighting
               )?.ciudades
             }
           />

@@ -58,6 +58,9 @@ const UserSchema = new Schema(
     gender: {
       type: String,
     },
+    searchingProfiles: [
+      { type: Schema.Types.ObjectId, ref: "SearchingProfile" },
+    ],
   },
   { timestamps: true, versionKey: false }
 );

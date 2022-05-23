@@ -1,24 +1,30 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { Formik, Form } from "formik";
 import { SchemaPersonalData } from "../utils/FormModels/yup-validations";
 import { FormikSelect } from "./FormikSelect";
 import { FormikInput } from "./FormikInput";
 import { useUser } from "@auth0/nextjs-auth0";
+import { useColombiaData } from "../hooks/useColombiaData";
+import { useRouter } from "next/router";
+import toast from "react-hot-toast";
 export const Forms = () => {
-  const [colombiaInfo, setColombiaInfo] = useState([]);
-  const [departments, setDepartments] = useState([]);
-  const { user, error, isLoading } = useUser();
-  useEffect(
-    () =>
-      fetch("/api/colombia")
-        .then((response) => response.json())
-        .then((data) => {
-          const cleanDepartments = data.map((i) => i.departamento.normalize());
-          setColombiaInfo(data);
-          setDepartments(cleanDepartments);
-        }),
-    []
-  );
+  const { colombiaData, departments } = useColombiaData();
+  const { user } = useUser();
+  const router = useRouter();
+  // useEffect(() => {
+  //   const handleRouteChange = (url, { shallow }) => {
+  //     const wantToLeave = window.confirm("¿Estas seguro de que quieres salir?");
+  //     if (!wantToLeave) return;
+  //   };
+
+  //   router.events.on("beforeHistoryChange", handleRouteChange);
+
+  //   // If the component is unmounted, unsubscribe
+  //   // from the event with the `off` method:
+  //   return () => {
+  //     router.events.off("beforeHistoryChange", handleRouteChange);
+  //   };
+  // }, []);
   return (
     <Formik
       initialValues={{
@@ -38,12 +44,18 @@ export const Forms = () => {
       validationSchema={SchemaPersonalData}
       onSubmit={async (values) => {
         const { email, sub } = user;
-        const res = await fetch("/api/users", {
-          method: "PUT",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ data: { ...values, email, sub } }),
-        });
-        console.log(res);
+        try {
+          const res = await fetch("/api/users", {
+            method: "PUT",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ data: { ...values, email, sub } }),
+          });
+          const data = await res.json();
+          toast.success(data.message);
+          router.push("/");
+        } catch (error) {
+          toast.error("An error has ocurred");
+        }
       }}
     >
       {(formik) => (
@@ -128,7 +140,7 @@ export const Forms = () => {
                 name="cityOfBirth"
                 disabled={formik.values.departmentOfBirth === ""}
                 options={
-                  colombiaInfo.find(
+                  colombiaData.find(
                     (i) =>
                       i.departamento.normalize() ==
                       formik.values.departmentOfBirth

@@ -1,6 +1,6 @@
 import mongoose, { Schema, model, models } from "mongoose";
 
-const MissingPersonSchema = new Schema({
+const SearchProfileSchema = new Schema({
   firstName: {
     type: String,
   },
@@ -57,4 +57,4 @@ const MissingPersonSchema = new Schema({
   },
 });
 export default mongoose.models.MissingPerson ||
-  mongoose.model("MissingPerson", MissingPersonSchema);
+  mongoose.model("SearchProfile", SearchProfileSchema);

@@ -1,18 +1,43 @@
 import React, { useState, useEffect } from "react";
 import { Button } from "./Button";
 import { PersonalDataForm } from "./PersonalDataForm";
-import { Formik, Form } from "formik";
+import { Formik, Form, useFormikContext } from "formik";
 import { useUser } from "@auth0/nextjs-auth0";
 import { PhysicalForm } from "./PhysicalForm";
-// import { FormikSelect } from "./FormikSelect";
-// import { FormikInput } from "./FormikInput";
+import { FormikSelect } from "./FormikSelect";
+import { cityToCoordinates } from "../utils/geo";
+import { FormikInput } from "./FormikInput";
 import { SchemaMissingPerson as validationSchema } from "../utils/FormModels/yup-validations";
 import { missingPersonInitialValues } from "../utils/FormModels/formInitialValues";
+import { useColombiaData } from "../hooks/useColombiaData";
 const steps = [
   "Información Personal",
   "Caracteristicas fisicas",
   "Ubicacion geografica",
 ];
+
+function _sleep(ms) {
+  return new Promise((resolve) => setTimeout(resolve, ms));
+}
+const fetchPost = async () => {
+  try {
+    const $input = document.querySelector("#input-upload-img");
+    const formData = new FormData();
+    console.log($input);
+    formData.append("input-upload-img", $input.files[0]);
+    console.log(formData);
+    const response = await fetch("/api/aws/uploadS3", {
+      method: "POST",
+      body: formData,
+    });
+    console.log(response);
+    const data = await response.json();
+    console.log("uploadFromForm", data);
+    return data;
+  } catch (error) {
+    console.log(error);
+  }
+};
 function _renderStepContent(step) {
   switch (step) {
     case 0:
@@ -20,7 +45,7 @@ function _renderStepContent(step) {
     case 1:
       return <PhysicalForm />;
     case 2:
-      return <div></div>;
+      return <ImgAndLocation />;
     default:
       return <div>Not Found</div>;
   }
@@ -32,11 +57,22 @@ export const MissingForm = () => {
   const currentValidationSchema = validationSchema[activeStep];
   const isLastStep = activeStep === steps.length - 1;
   async function _submitForm(values, actions) {
-    await _sleep(1000);
+    const { Location } = await fetchPost();
+    console.log("Location", Location);
+    if (values.cityOfLastSighting !== "") {
+      const [lat = null, lng = null] =
+        cityToCoordinates[values.cityOfLastSighting];
+      console.log(lat, lng);
+      values = {
+        ...values,
+        lat,
+        lng,
+      };
+    }
+    values.imgUrl = Location;
+
     alert(JSON.stringify(values, null, 2));
     actions.setSubmitting(false);
-
-    setActiveStep(activeStep + 1);
   }
 
   function _handleSubmit(values, actions) {
@@ -80,5 +116,25 @@ export const MissingForm = () => {
         </Form>
       )}
     </Formik>
+  );
+};
+
+const ImgAndLocation = () => {
+  const { colombiaData, departments } = useColombiaData();
+  const { values } = useFormikContext();
+
+  return (
+    <>
+      <div className="flex flex-col items-center mt-auto">
+        <label htmlFor="input-upload-img">Upload an img</label>
+        <FormikInput
+          type="file"
+          name="input-upload-img"
+          id="input-upload-img"
+          className="mb-4"
+          accept="image/*"
+        />
+      </div>
+    </>
   );
 };

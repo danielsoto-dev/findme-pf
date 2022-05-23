@@ -5,13 +5,12 @@ import { useMobileNavbar } from "../contexts/mobile-navbar";
 import { MobileNavbar } from "./MobileNavbar";
 import { useEffect } from "react";
 import { useRouter } from "next/router";
-
+import { Toaster } from "react-hot-toast";
 const mobileStyles = `sm:flex`;
 import { checkIfUserIsInDatabase } from "../lib/dbActions";
 export const Header = () => {
   const { user, error, isLoading } = useUser();
   const router = useRouter();
-  console.log(user);
   const { isOpen, toggle, setIsOpen } = useMobileNavbar();
   useEffect(async () => {
     if (user) {
@@ -31,6 +30,7 @@ export const Header = () => {
           Find<span className="text-blue-500">Me</span>
         </Link>
       </h1>
+      <Toaster position="top-right" toastOptions={{ duration: 6000 }} />
       <MobileNavbar
         className="sm:hidden text-2xl"
         user={user}

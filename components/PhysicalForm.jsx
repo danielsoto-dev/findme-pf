@@ -1,6 +1,6 @@
 import React from "react";
 import { Field, useFormikContext } from "formik";
-
+import { FormikSelect } from "./FormikSelect";
 const skinColors = ["#fbd8ba", "#e9b48c", "#a76743", "#7c4522", "#452a17"];
 // Brown, Amber, Hazel, Green, Blue, Gray;
 
@@ -16,7 +16,7 @@ const hairTypes = ["Straight", "Wavy", "Curly", "Coily"];
 const hairColors = ["#19140f", "#8e4a24", "#d0b48b", "#df7126", "#f0efed"];
 // const hairTypes = ["Lacio", "Ondulado", "Rizado", "Crespo"];
 export const PhysicalForm = () => {
-  const { values } = useFormikContext();
+  // const { values } = useFormikContext();
   return (
     <div className="mx-auto max-w-md">
       <h1 className="text-2xl text-center py-4">PsysicalForm</h1>

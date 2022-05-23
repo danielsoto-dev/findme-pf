@@ -1,10 +1,12 @@
 import React, { useRef } from "react";
 
 const fetchPost = async ({ current: form }) => {
+  const formData = new FormData(form);
+  console.log("form", formData);
   try {
     const response = await fetch("/api/aws/uploadS3", {
       method: "POST",
-      body: new FormData(form),
+      body: formData,
     });
     console.log(response);
     const data = await response.json();

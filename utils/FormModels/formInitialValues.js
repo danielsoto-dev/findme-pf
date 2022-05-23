@@ -17,4 +17,5 @@ export const missingPersonInitialValues = {
   height: "",
   departmentOfLastSighting: "",
   cityOfLastSighting: "",
+  imgUrl: "",
 };
