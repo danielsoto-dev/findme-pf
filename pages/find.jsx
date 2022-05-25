@@ -7,17 +7,23 @@ const Recommended = () => {
   const { user, error, isLoading } = useUser();
   const [persons, setPersons] = useState([]);
   useEffect(() => {
+    let isMounted = true;
     async function fetchPersons() {
       try {
         const response = await fetch(`/api/persons`);
         const persons = await response.json();
-        setPersons(persons);
-        return data;
+        console.log(persons);
+        if (isMounted) {
+          setPersons(persons);
+        }
       } catch (error) {
         console.log(error);
       }
     }
     fetchPersons();
+    return () => {
+      isMounted = false;
+    };
   }, [user]);
 
   return (

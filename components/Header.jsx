@@ -5,25 +5,34 @@ import { useMobileNavbar } from "../contexts/mobile-navbar";
 import { MobileNavbar } from "./MobileNavbar";
 import { useEffect } from "react";
 import { useRouter } from "next/router";
-import { Toaster } from "react-hot-toast";
-const mobileStyles = `sm:flex`;
+import { Toaster, toast } from "react-hot-toast";
 import { checkIfUserIsInDatabase } from "../lib/dbActions";
+const mobileStyles = `sm:flex`;
 export const Header = () => {
   const { user, error, isLoading } = useUser();
   const router = useRouter();
   const { isOpen, toggle, setIsOpen } = useMobileNavbar();
   useEffect(() => {
-    async function fetchUser() {
-      if (user) {
+    async function checkIfUserIsRegister() {
+      if (user && !isLoading) {
         const data = await checkIfUserIsInDatabase(user);
         const { hasFilledProfile } = data;
         if (!hasFilledProfile) {
           router.push("/register");
+          toast("Por favor llene el formulario antes de proceder", {
+            icon: "ℹ",
+            id: "checkIfUserIsRegister",
+            duration: 3000,
+          });
         }
       }
     }
-    fetchUser();
-  }, [user]);
+    try {
+      checkIfUserIsRegister();
+    } catch (error) {
+      console.log(error);
+    }
+  }, [user, isLoading]);
 
   return (
     <header className="sticky top-0 md:static z-10 bg-white flex justify-around items-center h-[80px]">

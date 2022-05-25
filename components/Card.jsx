@@ -18,7 +18,7 @@ export const Card = ({
   height = "",
   departmentOfBirth = "",
   cityOfBirth = "",
-  imgUrl = "https://images.unsplash.com/photo-1578961771886-97d51aee46bc?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=832&q=80",
+  imgUrl = "",
   contactEmail = "",
 }) => {
   let usableDate = "";
@@ -35,13 +35,13 @@ export const Card = ({
       onClick={handleOnClick}
       className="hover:cursor-pointer p-3 rounded overflow-hidden shadow-lg text-center  hover:bg-gray-100 "
     >
-      <Image
-        className="w-full object-cover"
-        src={imgUrl}
-        width={150}
-        height={150}
-        alt="Afro guy playing the bongo"
-      />
+      {imgUrl ? (
+        <Image src={imgUrl} width={200} height={200} alt="A person" />
+      ) : (
+        <div className="w-48 h-48 flex justify-center items-center text-3xl mx-auto bg-gray-400 opacity-40">
+          No image
+        </div>
+      )}
       <div className="px-6 py-4">
         <div className="font-bold mb-2">{fullName}</div>
         <p>

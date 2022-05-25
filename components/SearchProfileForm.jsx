@@ -16,10 +16,7 @@ const steps = [
   "Fotografía",
 ];
 
-function _sleep(ms) {
-  return new Promise((resolve) => setTimeout(resolve, ms));
-}
-const fetchPost = async () => {
+const fetchPostS3 = async () => {
   try {
     const $input = document.querySelector("#input-upload-img");
     const formData = new FormData();
@@ -69,7 +66,7 @@ export const SearchProfileForm = () => {
   async function _submitForm(values, actions) {
     let Location = "";
     if (values["input-upload-img"] !== "") {
-      const res = await fetchPost();
+      const res = await fetchPostS3();
       Location = res?.Location;
     }
     if (values.cityOfLastSighting !== "") {

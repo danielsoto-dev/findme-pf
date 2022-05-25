@@ -26,21 +26,3 @@ export const config = {
     bodyParser: false, // Disallow body parsing, consume as stream
   },
 };
-
-// // import nextConnect from "next-connect";
-// import withMulter from "../../../hooks/middlewares/withMulter";
-// import { addFaceToCollection } from "../../../utils/rekognition";
-// const handler = async (req, res) => {
-//   const { method } = req;
-//   if (method != "POST") {
-//     return res.status(400).json({
-//       succes: false,
-//       message: "This endpoint only handle POST request",
-//     });
-//   }
-//   addFaceToCollection
-// };
-
-// export default withMulter(handler, { type: "single", fieldName: "addFace" });
-
-// // };

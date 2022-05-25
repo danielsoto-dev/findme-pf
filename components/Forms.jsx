@@ -11,20 +11,7 @@ export const Forms = () => {
   const { colombiaData, departments } = useColombiaData();
   const { user } = useUser();
   const router = useRouter();
-  // useEffect(() => {
-  //   const handleRouteChange = (url, { shallow }) => {
-  //     const wantToLeave = window.confirm("¿Estas seguro de que quieres salir?");
-  //     if (!wantToLeave) return;
-  //   };
 
-  //   router.events.on("beforeHistoryChange", handleRouteChange);
-
-  //   // If the component is unmounted, unsubscribe
-  //   // from the event with the `off` method:
-  //   return () => {
-  //     router.events.off("beforeHistoryChange", handleRouteChange);
-  //   };
-  // }, []);
   return (
     <Formik
       initialValues={{
