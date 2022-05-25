@@ -97,11 +97,12 @@ export const Forms = () => {
               name="birthDate"
               type="date"
             />
-            <FormikInput
+            <FormikSelect
               styles="lg:col-span-1 col-span-2"
               label="Sexo de nacimiento"
               name="sex"
               type="text"
+              options={["Masculino", "Femenino", "Intersexual"]}
             />
             <FormikSelect
               styles="lg:col-span-1 col-span-2"
