@@ -21,7 +21,10 @@ export const Card = ({
   imgUrl = "",
   contactEmail = "",
 }) => {
-  const usableDate = format(new Date(birthDate), "dd/MM/yyyy");
+  let usableDate = "";
+  if (birthDate !== "") {
+    usableDate = format(new Date(birthDate), "dd/MM/yyyy");
+  }
   const age = calculateAge(usableDate);
   const fullName = `${firstName} ${middleName} ${lastName} ${secondLastName}`;
   const handleOnClick = () => {
