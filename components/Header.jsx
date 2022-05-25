@@ -18,13 +18,12 @@ export const Header = () => {
         const data = await checkIfUserIsInDatabase(user);
         const { hasFilledProfile } = data;
         if (!hasFilledProfile) {
-          console.log("data ->", data);
           router.push("/register");
         }
       }
     }
     fetchUser();
-  }, [user.email]);
+  }, [user]);
 
   return (
     <header className="sticky top-0 md:static z-10 bg-white flex justify-around items-center h-[80px]">
