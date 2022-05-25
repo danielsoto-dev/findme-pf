@@ -3,23 +3,19 @@ import { useUser } from "@auth0/nextjs-auth0";
 import { Card } from "../components/Card";
 import { Header } from "../components/Header";
 import { SearchBar } from "../components/SearchBar";
-const fetchPersons = async () => {
-  try {
-    const response = await fetch(`/api/persons`);
-    const data = await response.json();
-    console.log(data);
-    return data;
-  } catch (error) {
-    console.log(error);
-  }
-};
 const Recommended = () => {
   const { user, error, isLoading } = useUser();
   const [persons, setPersons] = useState([]);
   useEffect(() => {
     async function fetchPersons() {
-      const persons = await fetchPersons();
-      setPersons(persons);
+      try {
+        const response = await fetch(`/api/persons`);
+        const persons = await response.json();
+        setPersons(persons);
+        return data;
+      } catch (error) {
+        console.log(error);
+      }
     }
     fetchPersons();
   }, [user]);
