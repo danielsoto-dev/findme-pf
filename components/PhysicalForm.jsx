@@ -19,7 +19,6 @@ export const PhysicalForm = () => {
   // const { values } = useFormikContext();
   return (
     <div className="mx-auto max-w-md">
-      <h1 className="text-2xl text-center py-4">PsysicalForm</h1>
       <div className="mx-auto max-w-md flex  justify-center flex-col gap-4">
         <SkinColorGroup />
         <EyeColorGroup />
@@ -42,7 +41,7 @@ const SkinColorGroup = () => {
   return (
     <>
       <div id="my-radio-group" className="text-lg text-center font-bold">
-        Select the closest color to their skin tone
+        Seleccione el color de piel más cercano
       </div>
       <div
         className="flex gap-6 justify-center"
@@ -73,7 +72,7 @@ const EyeColorGroup = () => {
   return (
     <>
       <div id="my-radio-group" className="text-lg text-center font-bold">
-        Select the closest color to their eyes
+        Seleccione el color de ojos más cercano
       </div>
       <div
         className="flex gap-6 justify-center"
@@ -103,7 +102,7 @@ const HairTypeGroup = () => {
   return (
     <>
       <div id="my-radio-group" className="text-lg text-center font-bold">
-        Select the closest hair type
+        Seleccione el color de cabello más cercano
       </div>
       <div
         className="flex gap-6 justify-center"
@@ -111,7 +110,6 @@ const HairTypeGroup = () => {
         by="my-radio-group"
       >
         {hairTypes.map((type, idx) => {
-          console.log(type, idx);
           return (
             <label key={type} className="flex justify-center flex-col gap-4">
               <p className="font-bold">{type}</p>
@@ -129,7 +127,7 @@ const HairColorGroup = () => {
   return (
     <>
       <div id="my-radio-group" className="text-lg text-center font-bold">
-        Select the closest color to their hair
+        Seleccione el tipo de cabello más cercano
       </div>
       <div
         className="flex gap-6 justify-center"

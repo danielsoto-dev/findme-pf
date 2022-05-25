@@ -30,7 +30,7 @@ export const Header = () => {
           Find<span className="text-blue-500">Me</span>
         </Link>
       </h1>
-      <Toaster position="top-right" toastOptions={{ duration: 6000 }} />
+      <Toaster position="top-right" toastOptions={{ duration: 3000 }} />
       <MobileNavbar
         className="sm:hidden text-2xl"
         user={user}
@@ -41,6 +41,9 @@ export const Header = () => {
       <nav className={`justify-around items-center hidden ${mobileStyles}`}>
         <Link className="mx-4" href="/about">
           About Us
+        </Link>
+        <Link className="mx-4" href="/register-person">
+          Register a Person
         </Link>
         <Link className="mx-4" href="/contact-us">
           Contact Us
@@ -73,7 +76,7 @@ const NotLoggedIn = () => {
 const LoggedIn = ({ user }) => {
   return (
     <>
-      <Link href="recommended" className="mx-4">
+      <Link href="/find" className="mx-4">
         Find People
       </Link>
       <span className="text-blue-500 mx-4">{user.name}</span>

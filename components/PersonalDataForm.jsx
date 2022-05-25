@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { FormikSelect } from "./FormikSelect";
 import { FormikInput } from "./FormikInput";
 import { useFormikContext } from "formik";
-export const PersonalDataForm = () => {
+export const PersonalDataForm = ({ nicknameField = true }) => {
   const [colombiaInfo, setColombiaInfo] = useState([]);
   const [departments, setDepartments] = useState([]);
   const { values } = useFormikContext();
@@ -16,13 +16,15 @@ export const PersonalDataForm = () => {
 
   return (
     <div className="flex flex-col items-center mt-auto">
-      <h1 className="font-VarelaRound text-first-color text-3xl m-2">
-        Complete la siguiente información
-      </h1>
-      <h3 className="font-OpenSans text-xl text-gray-900 font-bold  mb-2">
-        Información Personal
-      </h3>
       <div className="grid gap-4 grid-cols-4  border w-3/4 h-fit p-6 shadow-xl  border-solid border-inherit rounded-lg">
+        {nicknameField && (
+          <FormikInput
+            styles="lg:col-span-2 col-span-4"
+            label="Nombre del perfil de busqueda"
+            name="nickname"
+            type="text"
+          />
+        )}
         <FormikInput
           styles="lg:col-span-2 col-span-4"
           label="Primer nombre"
@@ -53,11 +55,12 @@ export const PersonalDataForm = () => {
           name="birthDate"
           type="date"
         />
-        <FormikInput
+        <FormikSelect
           styles="lg:col-span-1 col-span-2"
-          label="Genero"
-          name="gender"
+          label="Sexo de nacimiento"
+          name="sex"
           type="text"
+          options={["Masculino", "Femenino", "Intersexual"]}
         />
         <FormikSelect
           styles="lg:col-span-1 col-span-2"

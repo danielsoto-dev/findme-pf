@@ -11,6 +11,7 @@
     "@auth0/nextjs-auth0": "^1.7.0",
     "@headlessui/react": "^1.5.0",
     "aws-sdk": "^2.1133.0",
+    "date-fns": "^2.28.0",
     "dotenv": "^16.0.1",
     "formik": "^2.2.9",
     "mongoose": "^6.3.3",

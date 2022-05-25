@@ -1,5 +1,6 @@
 import { dbConnect } from "../../lib/dbConnect";
-import UserModel from "../../models/User";
+import PersonModel from "../../models/Person";
+import User from "../../models/User";
 export default async function handler(req, res) {
   dbConnect();
 
@@ -20,19 +21,24 @@ export default async function handler(req, res) {
       res.status(500).end();
   }
 }
-const post = async (req, res) => {
-  const { email, sub } = req.body;
+const get = async (req, res) => {
+  const { query } = req;
   try {
-    const user = await UserModel.findOne({ sub });
-    if (!user) {
-      const newUser = await new UserModel({ sub, email }).save();
-      console.log("new user created", newUser);
-      res.status(201).json(newUser);
-    } else {
-      console.log("User already exists:", user);
-      res.status(200).json(user);
-    }
+    const data = await PersonModel.find(query);
+    res.status(200).json(data);
   } catch (error) {
+    console.log("error getting persons", error);
+    res.status(500).json(error);
+  }
+};
+const post = async (req, res) => {
+  const values = req.body;
+  try {
+    const newPerson = await new PersonModel(values);
+    const data = await newPerson.save();
+    res.status(201).json(data);
+  } catch (error) {
+    console.log("error adding Person", error);
     res.status(500).json(error);
   }
 };

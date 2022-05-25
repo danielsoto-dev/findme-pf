@@ -38,7 +38,7 @@ export const Forms = () => {
         departmentOfBirth: "",
         cityOfBirth: "",
         mobilePhone: "",
-        gender: "",
+        sex: "",
         address: "",
       }}
       validationSchema={SchemaPersonalData}
@@ -99,8 +99,8 @@ export const Forms = () => {
             />
             <FormikInput
               styles="lg:col-span-1 col-span-2"
-              label="Genero"
-              name="gender"
+              label="Sexo de nacimiento"
+              name="sex"
               type="text"
             />
             <FormikSelect

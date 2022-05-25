@@ -1,10 +1,29 @@
 import Image from "next/image";
+import { format } from "date-fns";
+import { calculateAge, calculateFullAge } from "../utils/time";
 export const Card = ({
-  fullName = "John Doe",
-  age = 18,
-  location = "Barranquilla, Atlántico",
-  percentage = 0.7,
+  firstName = "",
+  middleName = "",
+  lastName = "",
+  secondLastName = "",
+  documentType = "",
+  documentNumber = "",
+  birthDate = "",
+  mobilePhone = "",
+  sex = "",
+  eyeColor = "",
+  skinColor = "",
+  hairType = "",
+  hairColor = "",
+  height = "",
+  departmentOfBirth = "",
+  cityOfBirth = "",
+  imgUrl = "",
+  contactEmail = "",
 }) => {
+  const usableDate = format(new Date(birthDate), "dd/MM/yyyy");
+  const age = calculateAge(usableDate);
+  const fullName = `${firstName} ${middleName} ${lastName} ${secondLastName}`;
   const handleOnClick = () => {
     alert("Redirect to detail");
   };
@@ -15,25 +34,19 @@ export const Card = ({
     >
       <Image
         className="w-full object-cover"
-        src="https://images.unsplash.com/photo-1578961771886-97d51aee46bc?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=832&q=80"
+        src={imgUrl}
         width={150}
         height={150}
         alt="Afro guy playing the bongo"
       />
       <div className="px-6 py-4">
         <div className="font-bold mb-2">{fullName}</div>
-        <p className="">Edad: {age} </p>
         <p>
-          <span className="text-purple-500 font-bold">
-            Coincidencia: {percentage * 100}%
-          </span>
+          <span className="">Edad actual: {age}</span>
         </p>
-        <p className="  mb-2 text-blue-500 italic">{location}</p>
-        <p className="text-gray-700 text-sm">
-          Lorem ipsum dolor sit amet, consectetur adipisicing elit. Voluptatibus
-          quia, nulla! Maiores et perferendis eaque, exercitationem praesentium
-          nihil. :D
-        </p>
+        <p>Sexo:{sex}</p>
+        <p>Estature: {Number(height) / 100}m</p>
+        <p className="  mb-2 text-blue-500"></p>
       </div>
     </div>
   );

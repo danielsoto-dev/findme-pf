@@ -55,12 +55,10 @@ const UserSchema = new Schema(
     documentNumber: {
       type: String,
     },
-    gender: {
+    sex: {
       type: String,
     },
-    searchingProfiles: [
-      { type: Schema.Types.ObjectId, ref: "SearchingProfile" },
-    ],
+    searchingProfiles: [{ type: Schema.Types.ObjectId, ref: "SearchProfile" }],
   },
   { timestamps: true, versionKey: false }
 );

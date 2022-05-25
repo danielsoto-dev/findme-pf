@@ -1,6 +1,6 @@
 import mongoose, { Schema, model, models } from "mongoose";
 
-const MissingPersonSchema = new Schema({
+const PersonSchema = new Schema({
   firstName: {
     type: String,
   },
@@ -22,7 +22,7 @@ const MissingPersonSchema = new Schema({
   documentNumber: {
     type: String,
   },
-  gender: {
+  sex: {
     type: String,
   },
   eyeColor: {
@@ -38,23 +38,22 @@ const MissingPersonSchema = new Schema({
     type: String,
   },
   height: {
-    type: Float32Array,
+    type: Number,
   },
-  departmentOfLastSighting: {
+  departmentOfBirth: {
     type: String,
   },
-  cityOfLastSighting: {
+  cityOfLastBirth: {
     type: String,
   },
   lat: {
-    type: Float32Array,
+    type: Number,
   },
   lng: {
-    type: Float32Array,
+    type: Number,
   },
   imgUrl: {
     type: String,
   },
 });
-export default mongoose.models.MissingPerson ||
-  mongoose.model("MissingPerson", MissingPersonSchema);
+export default mongoose.models.Person || mongoose.model("Person", PersonSchema);

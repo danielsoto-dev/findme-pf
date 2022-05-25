@@ -1,4 +1,6 @@
+import { useEffect, useState } from "react";
 import { useUser } from "@auth0/nextjs-auth0";
+import { useRouter } from "next/router";
 import { Header } from "../components/Header";
 import { Footer } from "../components/Footer";
 import { Link } from "../components/Link";
@@ -6,7 +8,19 @@ import Image from "next/image";
 
 const Profile = () => {
   const { user } = useUser();
-  console.log("Loged user -> :", user);
+  const [profiles, setProfiles] = useState([]);
+  console.log(user?.sub);
+  const router = useRouter();
+  useEffect(async () => {
+    if (!user) {
+      return;
+    }
+    let profiles = await fetch(
+      `/api/search-profiles/?${new URLSearchParams({ sub: user.sub })}`
+    );
+    setProfiles(await profiles.json());
+  }, [user]);
+
   return (
     <>
       <Header />
@@ -26,9 +40,18 @@ const Profile = () => {
           <div id="add-new-person">
             <h2 className="text-2xl mb-6">Your search profiles...</h2>
             <div className="mt-4 max-h-[200px] overflow-x-auto">
-              {
-                //  Display data from missing profiles for this user
-              }
+              {profiles.length > 0 &&
+                profiles.map((profile, idx) => {
+                  return (
+                    <a
+                      key={idx}
+                      href={`/search-by-profile/${profile._id}`}
+                      className="cursor-pointer text-gray-900 hover:bg-blue-500 hover:text-white group flex rounded-md items-center w-full px-2 py-2 text-sm"
+                    >
+                      {profile.nickname}
+                    </a>
+                  );
+                })}
             </div>
             <Link
               href="/missing-register"

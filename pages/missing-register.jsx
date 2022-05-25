@@ -1,12 +1,12 @@
 import React from "react";
-import { MissingForm } from "../components/MissingForm";
+import { SearchProfileForm } from "../components/SearchProfileForm";
 import { Header } from "../components/Header";
 const MissingRegister = () => {
   return (
     <>
       <Header />
       <div>
-        <MissingForm />
+        <SearchProfileForm />
       </div>
     </>
   );

@@ -1,4 +1,5 @@
-export const missingPersonInitialValues = {
+export const searchProfileInitialValues = {
+  nickname: "",
   firstName: "",
   middleName: "",
   lastName: "",
@@ -9,7 +10,7 @@ export const missingPersonInitialValues = {
   departmentOfBirth: "",
   cityOfBirth: "",
   mobilePhone: "",
-  gender: "",
+  sex: "",
   eyeColor: "",
   skinColor: "",
   hairType: "",
@@ -18,4 +19,27 @@ export const missingPersonInitialValues = {
   departmentOfLastSighting: "",
   cityOfLastSighting: "",
   imgUrl: "",
+  "input-upload-img": "",
+};
+export const personInitialValues = {
+  nickname: "",
+  firstName: "",
+  middleName: "",
+  lastName: "",
+  secondLastName: "",
+  documentType: "",
+  documentNumber: "",
+  birthDate: "",
+  departmentOfBirth: "",
+  cityOfBirth: "",
+  mobilePhone: "",
+  sex: "",
+  eyeColor: "",
+  skinColor: "",
+  hairType: "",
+  hairColor: "",
+  height: "",
+  imgUrl: "",
+  "input-upload-img": "",
+  contactEmail: "",
 };

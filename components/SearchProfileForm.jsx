@@ -7,13 +7,13 @@ import { PhysicalForm } from "./PhysicalForm";
 import { FormikSelect } from "./FormikSelect";
 import { cityToCoordinates } from "../utils/geo";
 import { FormikInput } from "./FormikInput";
-import { SchemaMissingPerson as validationSchema } from "../utils/FormModels/yup-validations";
-import { missingPersonInitialValues } from "../utils/FormModels/formInitialValues";
+import { SchemaSearchProfile as validationSchema } from "../utils/FormModels/yup-validations";
+import { searchProfileInitialValues } from "../utils/FormModels/formInitialValues";
 import { useColombiaData } from "../hooks/useColombiaData";
 const steps = [
-  "Información Personal",
+  "Información de la persona",
   "Caracteristicas fisicas",
-  "Ubicacion geografica",
+  "Fotografía",
 ];
 
 function _sleep(ms) {
@@ -30,9 +30,7 @@ const fetchPost = async () => {
       method: "POST",
       body: formData,
     });
-    console.log(response);
     const data = await response.json();
-    console.log("uploadFromForm", data);
     return data;
   } catch (error) {
     console.log(error);
@@ -45,20 +43,35 @@ function _renderStepContent(step) {
     case 1:
       return <PhysicalForm />;
     case 2:
-      return <ImgAndLocation />;
+      return <Img />;
     default:
       return <div>Not Found</div>;
   }
 }
-
-export const MissingForm = () => {
+const fetchSearchProfile = async (values) => {
+  try {
+    const response = await fetch(`/api/search-profiles`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(values),
+    });
+    const data = await response.json();
+    return data;
+  } catch (error) {
+    console.log(error);
+  }
+};
+export const SearchProfileForm = () => {
   const { user, error, isLoading } = useUser();
   const [activeStep, setActiveStep] = useState(0);
   const currentValidationSchema = validationSchema[activeStep];
   const isLastStep = activeStep === steps.length - 1;
   async function _submitForm(values, actions) {
-    const { Location } = await fetchPost();
-    console.log("Location", Location);
+    let Location = "";
+    if (values["input-upload-img"] !== "") {
+      const res = await fetchPost();
+      Location = res?.Location;
+    }
     if (values.cityOfLastSighting !== "") {
       const [lat = null, lng = null] =
         cityToCoordinates[values.cityOfLastSighting];
@@ -70,8 +83,9 @@ export const MissingForm = () => {
       };
     }
     values.imgUrl = Location;
-
-    alert(JSON.stringify(values, null, 2));
+    values.sub = user.sub;
+    const result = await fetchSearchProfile(values);
+    console.log(result);
     actions.setSubmitting(false);
   }
 
@@ -91,27 +105,27 @@ export const MissingForm = () => {
 
   return (
     <Formik
-      initialValues={missingPersonInitialValues}
+      initialValues={searchProfileInitialValues}
       validationSchema={currentValidationSchema}
       onSubmit={_handleSubmit}
     >
       {({ isSubmitting, values }) => (
         <Form>
-          <h1 className="text-center text-3xl">
-            You are on the Step #{activeStep}
-          </h1>
+          <h2 className="text-center text-2xl font-bold my-10">
+            {steps[activeStep]}
+          </h2>
           {_renderStepContent(activeStep)}
           <div className="text-center mt-6 flex gap-4 justify-center">
             {activeStep !== 0 && (
               <Button type="button" onClick={_handleBack}>
-                Back
+                Atrás
               </Button>
             )}
 
             <Button disabled={isSubmitting} type="submit">
               {isLastStep ? "Submit" : "Next"}
             </Button>
-            {isSubmitting && <p>Submiting...</p>}
+            {isSubmitting && <p>Subiendo formulario...</p>}
           </div>
         </Form>
       )}
@@ -119,10 +133,7 @@ export const MissingForm = () => {
   );
 };
 
-const ImgAndLocation = () => {
-  const { colombiaData, departments } = useColombiaData();
-  const { values } = useFormikContext();
-
+const Img = () => {
   return (
     <>
       <div className="flex flex-col items-center mt-auto">

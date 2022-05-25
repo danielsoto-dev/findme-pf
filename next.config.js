@@ -6,6 +6,7 @@ module.exports = {
       "s.gravatar.com",
       "lh3.googleusercontent.com",
       "https://findme-faces-bucket.s3.amazonaws.com",
+      "findme-faces-bucket.s3.amazonaws.com",
     ],
   },
 };
