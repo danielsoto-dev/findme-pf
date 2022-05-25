@@ -12,16 +12,19 @@ export const Header = () => {
   const { user, error, isLoading } = useUser();
   const router = useRouter();
   const { isOpen, toggle, setIsOpen } = useMobileNavbar();
-  useEffect(async () => {
-    if (user) {
-      const data = await checkIfUserIsInDatabase(user);
-      const { hasFilledProfile } = data;
-      if (!hasFilledProfile) {
-        console.log("data ->", data);
-        router.push("/register");
+  useEffect(() => {
+    async function fetchUser() {
+      if (user) {
+        const data = await checkIfUserIsInDatabase(user);
+        const { hasFilledProfile } = data;
+        if (!hasFilledProfile) {
+          console.log("data ->", data);
+          router.push("/register");
+        }
       }
     }
-  }, [user]);
+    fetchUser();
+  }, [user, router]);
 
   return (
     <header className="sticky top-0 md:static z-10 bg-white flex justify-around items-center h-[80px]">

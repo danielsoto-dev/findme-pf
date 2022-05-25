@@ -11,14 +11,16 @@ const Profile = () => {
   const [profiles, setProfiles] = useState([]);
   console.log(user?.sub);
   const router = useRouter();
-  useEffect(async () => {
-    if (!user) {
-      return;
+  useEffect(() => {
+    async function fetchProfiles() {
+      if (!user) {
+        return;
+      }
+      let profiles = await fetch(
+        `/api/search-profiles/?${new URLSearchParams({ sub: user.sub })}`
+      );
+      setProfiles(await profiles.json());
     }
-    let profiles = await fetch(
-      `/api/search-profiles/?${new URLSearchParams({ sub: user.sub })}`
-    );
-    setProfiles(await profiles.json());
   }, [user]);
 
   return (

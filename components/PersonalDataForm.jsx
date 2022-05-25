@@ -6,12 +6,15 @@ export const PersonalDataForm = ({ nicknameField = true }) => {
   const [colombiaInfo, setColombiaInfo] = useState([]);
   const [departments, setDepartments] = useState([]);
   const { values } = useFormikContext();
-  useEffect(async () => {
-    const response = await fetch("/api/colombia");
-    const data = await response.json();
-    const cleanDepartments = data.map((i) => i.departamento.normalize());
-    setColombiaInfo(data);
-    setDepartments(cleanDepartments);
+  useEffect(() => {
+    async function fetchColombia() {
+      const response = await fetch("/api/colombia");
+      const data = await response.json();
+      const cleanDepartments = data.map((i) => i.departamento.normalize());
+      setColombiaInfo(data);
+      setDepartments(cleanDepartments);
+    }
+    fetchColombia();
   }, []);
 
   return (

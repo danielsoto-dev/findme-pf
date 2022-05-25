@@ -16,9 +16,12 @@ const fetchPersons = async () => {
 const Recommended = () => {
   const { user, error, isLoading } = useUser();
   const [persons, setPersons] = useState([]);
-  useEffect(async () => {
-    const persons = await fetchPersons();
-    setPersons(persons);
+  useEffect(() => {
+    async function fetchPersons() {
+      const persons = await fetchPersons();
+      setPersons(persons);
+    }
+    fetchPersons();
   }, [user]);
 
   return (
