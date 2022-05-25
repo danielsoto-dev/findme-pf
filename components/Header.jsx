@@ -24,7 +24,7 @@ export const Header = () => {
       }
     }
     fetchUser();
-  }, [user, router]);
+  }, [user.email]);
 
   return (
     <header className="sticky top-0 md:static z-10 bg-white flex justify-around items-center h-[80px]">

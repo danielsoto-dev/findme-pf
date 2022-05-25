@@ -15,6 +15,7 @@ export const DropDown = ({ user }) => {
             src={user.picture}
             width={imageSize}
             height={imageSize}
+            alt="Profile"
           />
         </Menu.Button>
         <Transition
