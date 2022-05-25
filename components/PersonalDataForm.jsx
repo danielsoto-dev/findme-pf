@@ -85,7 +85,7 @@ export const PersonalDataForm = ({ nicknameField = true }) => {
         />
         <div className="grid grid-cols-2 col-span-2 gap-1">
           <label className="col-span-2 font-VarelaRound text-sm text-center text-first-color">
-            Ciudad y pais de nacimiento
+            Departamento y ciudad de nacimiento
           </label>
           <FormikSelect
             styles="col-span"
