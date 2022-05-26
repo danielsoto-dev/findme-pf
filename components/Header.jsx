@@ -15,6 +15,7 @@ export const Header = () => {
   useEffect(() => {
     async function checkIfUserIsRegister() {
       if (user && !isLoading) {
+        console.log("user pre fetch", user);
         const data = await checkIfUserIsInDatabase(user);
         const { hasFilledProfile } = data;
         if (!hasFilledProfile) {
