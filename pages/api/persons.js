@@ -1,6 +1,6 @@
 import { dbConnect } from "../../lib/dbConnect";
 import PersonModel from "../../models/Person";
-import User from "../../models/User";
+import UserModel from "../../models/User";
 export default async function handler(req, res) {
   dbConnect();
 
@@ -22,15 +22,41 @@ export default async function handler(req, res) {
   }
 }
 const get = async (req, res) => {
-  const { query } = req;
-  try {
-    const data = await PersonModel.find(query);
-    res.status(200).json(data);
-  } catch (error) {
-    console.log("error getting persons", error);
-    res.status(500).json(error);
+  switch (req.query.type) {
+    case "all":
+      await getAll(req, res);
+      break;
+    case "one":
+      await getOne(req, res);
+      break;
+    case "byIds":
+      await getByIds(req, res);
+      break;
+    default:
+      res.status(500).json({ error: "Invalid type" });
   }
 };
+const getByIds = async (req, res) => {
+  try {
+    const { FaceId: FaceIds } = req.query;
+    console.log("FaceIds", FaceIds);
+    const persons = await PersonModel.find({ _id: { $in: FaceIds } });
+    res.json(persons);
+  } catch (error) {
+    console.log("error getting persons", error);
+    res.status(500).json({ error });
+  }
+};
+
+const getAll = async (req, res) => {
+  try {
+    const persons = await PersonModel.find({});
+    res.json(persons);
+  } catch (error) {
+    res.status(500).json({ error });
+  }
+};
+
 const post = async (req, res) => {
   const values = req.body;
   try {

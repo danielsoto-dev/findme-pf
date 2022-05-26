@@ -65,6 +65,7 @@ export const PersonForm = () => {
       let imgKey = "";
       if (values["input-upload-img"] !== "") {
         const { Location, key } = await uploadToS3FromInput();
+        console.log(key);
         imgUrl = Location;
         imgKey = key;
       }

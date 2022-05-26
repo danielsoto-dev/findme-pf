@@ -141,6 +141,7 @@ const addFaceToCollection = async (req, res) => {
   const {
     body: { id, imgKey },
   } = req;
+  console.log(id, imgKey);
   // Usando un FileStream para enviar a AWS
   const params = {
     Image: {

@@ -11,7 +11,9 @@ const Recommended = () => {
     let isMounted = true;
     async function fetchPersons() {
       try {
-        const response = await fetch(`/api/persons`);
+        const response = await fetch(
+          `/api/persons?${new URLSearchParams({ type: "all" })}`
+        );
         const persons = await response.json();
         console.log(persons);
         if (isMounted) {
@@ -26,6 +28,18 @@ const Recommended = () => {
       isMounted = false;
     };
   }, [user]);
+  const getPersonsFromIds = async (ids) => {
+    try {
+      const response = await fetch(
+        `/api/persons?${new URLSearchParams([["type", "byIds"], ...ids])}`
+      );
+      const persons = await response.json();
+
+      setPersons(persons);
+    } catch (error) {
+      console.log(error);
+    }
+  };
   const searchFace = async (e) => {
     console.log(ref);
     e.preventDefault();
@@ -35,8 +49,12 @@ const Recommended = () => {
         body: new FormData(ref.current),
       });
       console.log(response);
-      const data = await response.json();
-      console.log(data);
+      const { faceMatches = [] } = await response.json();
+      console.log(faceMatches);
+      const facesIDs = faceMatches.map((face) => {
+        return ["FaceId", face.Face.ExternalImageId];
+      });
+      getPersonsFromIds(facesIDs);
     } catch (error) {
       console.log(error);
     }
