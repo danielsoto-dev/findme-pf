@@ -182,8 +182,7 @@ const searchFaceByImage = async (req, res) => {
       Bytes: file.buffer,
     },
     // MaxFaces: 1,
-    // FaceMatchThreshold?: Percent;
-    // QualityFilter?: QualityFilter;
+    QualityFilter: "LOW",
     CollectionId: COLLECTION_NAME,
   };
 
