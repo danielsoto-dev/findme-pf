@@ -1,10 +1,11 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import { useUser } from "@auth0/nextjs-auth0";
 import { Card } from "../components/Card";
 import { Header } from "../components/Header";
 import { SearchBar } from "../components/SearchBar";
 const Recommended = () => {
   const { user, error, isLoading } = useUser();
+  const ref = useRef(null);
   const [persons, setPersons] = useState([]);
   useEffect(() => {
     let isMounted = true;
@@ -25,7 +26,21 @@ const Recommended = () => {
       isMounted = false;
     };
   }, [user]);
-
+  const searchFace = async (e) => {
+    console.log(ref);
+    e.preventDefault();
+    try {
+      const response = await fetch(`/api/aws/searchFace`, {
+        method: "POST",
+        body: new FormData(ref.current),
+      });
+      console.log(response);
+      const data = await response.json();
+      console.log(data);
+    } catch (error) {
+      console.log(error);
+    }
+  };
   return (
     <>
       <Header />{" "}
@@ -33,7 +48,17 @@ const Recommended = () => {
         These are the top X persons that match your searching params
       </h2>
       <div className="gap-y-8 px-12">
-        <SearchBar />
+        <form ref={ref} onSubmit={searchFace} encType="multipart/form-data">
+          <input
+            type="file"
+            name="searchFace"
+            id="searchFace"
+            accept="image/*"
+          />
+          <button onClick={searchFace}>submit</button>
+        </form>
+        {/* <SearchBar />
+         */}
         <RecommendedGrid persons={persons} />
       </div>
     </>

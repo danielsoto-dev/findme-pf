@@ -1,38 +1,21 @@
 import React, { useState, useEffect } from "react";
+import { uploadToS3FromInput } from "../utils/s3-client";
 import { Button } from "./Button";
 import { PersonalDataForm } from "./PersonalDataForm";
 import { Formik, Form, useFormikContext } from "formik";
+import { toast } from "react-hot-toast";
 import { useUser } from "@auth0/nextjs-auth0";
 import { PhysicalForm } from "./PhysicalForm";
-import { FormikSelect } from "./FormikSelect";
-import { cityToCoordinates } from "../utils/geo";
+import { appendLatLngFromCity } from "../utils/geo";
 import { FormikInput } from "./FormikInput";
 import { SchemaSearchProfile as validationSchema } from "../utils/FormModels/yup-validations";
 import { searchProfileInitialValues } from "../utils/FormModels/formInitialValues";
-import { useColombiaData } from "../hooks/useColombiaData";
 const steps = [
   "Información de la persona",
   "Caracteristicas fisicas",
   "Fotografía",
 ];
 
-const fetchPostS3 = async () => {
-  try {
-    const $input = document.querySelector("#input-upload-img");
-    const formData = new FormData();
-    console.log($input);
-    formData.append("input-upload-img", $input.files[0]);
-    console.log(formData);
-    const response = await fetch("/api/aws/uploadS3", {
-      method: "POST",
-      body: formData,
-    });
-    const data = await response.json();
-    return data;
-  } catch (error) {
-    console.log(error);
-  }
-};
 function _renderStepContent(step) {
   switch (step) {
     case 0:
@@ -45,7 +28,7 @@ function _renderStepContent(step) {
       return <div>Not Found</div>;
   }
 }
-const fetchSearchProfile = async (values) => {
+const addSearchProfile = async (values) => {
   try {
     const response = await fetch(`/api/search-profiles`, {
       method: "POST",
@@ -64,25 +47,23 @@ export const SearchProfileForm = () => {
   const currentValidationSchema = validationSchema[activeStep];
   const isLastStep = activeStep === steps.length - 1;
   async function _submitForm(values, actions) {
-    let Location = "";
-    if (values["input-upload-img"] !== "") {
-      const res = await fetchPostS3();
-      Location = res?.Location;
+    let imgUrl = "";
+    try {
+      if (values["input-upload-img"] !== "") {
+        const { Location } = await uploadToS3FromInput();
+        imgUrl = Location;
+      }
+      if (values.cityOfBirth !== "") {
+        values = appendLatLngFromCity(values, values.cityOfBirth);
+      }
+      values.imgUrl = imgUrl;
+      values.sub = user.sub;
+      await addSearchProfile(values);
+      toast.success("Search Profile added successfully");
+    } catch (error) {
+      toast.error("Error adding Search Profile");
+      console.log(error);
     }
-    if (values.cityOfLastSighting !== "") {
-      const [lat = null, lng = null] =
-        cityToCoordinates[values.cityOfLastSighting];
-      console.log(lat, lng);
-      values = {
-        ...values,
-        lat,
-        lng,
-      };
-    }
-    values.imgUrl = Location;
-    values.sub = user.sub;
-    const result = await fetchSearchProfile(values);
-    console.log(result);
     actions.setSubmitting(false);
   }
 

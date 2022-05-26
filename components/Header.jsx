@@ -53,7 +53,7 @@ export const Header = () => {
         <Link className="mx-4" href="/about">
           About Us
         </Link>
-        <Link className="mx-4" href="/register-person">
+        <Link className="mx-4" href="/person-register">
           Register a Person
         </Link>
         <Link className="mx-4" href="/contact-us">

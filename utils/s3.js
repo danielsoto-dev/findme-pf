@@ -1,15 +1,16 @@
 import AWS from "aws-sdk";
-const { AWS_KEY_VALUE, AWS_SECRET_KEY_VALUE, AWS_REGION_VALUE, BUCKET_NAME } =
-  process.env;
-if (!AWS_KEY_VALUE || !AWS_REGION_VALUE || !AWS_SECRET_KEY_VALUE)
-  throw new Error("Missing aws enviroment vars");
-
-console.table([
+const {
   AWS_KEY_VALUE,
   AWS_SECRET_KEY_VALUE,
   AWS_REGION_VALUE,
+  COLLECTION_NAME,
   BUCKET_NAME,
-]);
+} = process.env;
+//console log process.env
+if (!AWS_KEY_VALUE || !AWS_REGION_VALUE || !AWS_SECRET_KEY_VALUE) {
+  throw new Error("Missing aws enviroment vars");
+}
+
 const S3 = new AWS.S3({
   accessKeyId: AWS_KEY_VALUE,
   secretAccessKey: AWS_SECRET_KEY_VALUE,

@@ -1,7 +1,5 @@
 import nextConnect from "next-connect";
-import multer from "multer";
 import { addFaceToCollection } from "../../../utils/rekognition";
-const upload = multer();
 const apiRoute = nextConnect({
   onError(error, req, res) {
     res
@@ -13,16 +11,8 @@ const apiRoute = nextConnect({
   },
 });
 
-apiRoute.use(upload.single("addFace"));
-
 apiRoute.post((req, res) => {
   addFaceToCollection(req, res);
 });
 
 export default apiRoute;
-
-export const config = {
-  api: {
-    bodyParser: false, // Disallow body parsing, consume as stream
-  },
-};

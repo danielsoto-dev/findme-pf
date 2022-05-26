@@ -1,5 +1,11 @@
 import AWS from "aws-sdk";
-const { AWS_KEY_VALUE, AWS_SECRET_KEY_VALUE, AWS_REGION_VALUE } = process.env;
+const {
+  AWS_KEY_VALUE,
+  AWS_SECRET_KEY_VALUE,
+  AWS_REGION_VALUE,
+  COLLECTION_NAME,
+  BUCKET_NAME,
+} = process.env;
 
 // Necesitamos estas variables de AWS para poder acceder al servicio
 if (!AWS_KEY_VALUE || !AWS_REGION_VALUE || !AWS_SECRET_KEY_VALUE)
@@ -133,44 +139,39 @@ const deleteCollection = async (req, res) => {
 };
 const addFaceToCollection = async (req, res) => {
   const {
-    file,
-    body: { collectionName, name_id },
+    body: { id, imgKey },
   } = req;
-  console.log("NOMBRE DE LA COLLECI´ON", collectionName);
-  if (!file) return res.status(400).send();
-  //Inicializamos la instancia de AWS Rekognition
-
   // Usando un FileStream para enviar a AWS
   const params = {
     Image: {
-      Bytes: file.buffer,
+      S3Object: {
+        Bucket: BUCKET_NAME,
+        Name: imgKey,
+      },
     },
-    ExternalImageId: name_id,
+    ExternalImageId: id,
     MaxFaces: 1,
     QualityFilter: "AUTO",
-    CollectionId: collectionName,
+    CollectionId: COLLECTION_NAME,
   };
 
   try {
     // Solicitamos el reconocimiento a AWS
-    console.log(params);
     const response = await rekognition.indexFaces(params).promise();
     console.log(response);
     return res.send({
       response,
     });
   } catch (error) {
-    console.log("ERROR");
-    console.error(error);
-    return res.status(500).send({ error });
+    return res
+      .status(500)
+      .send({ error: `From addFaceToCollection ocurred: ${error}` });
   }
 };
 const searchFaceByImage = async (req, res) => {
-  const {
-    file,
-    body: { collectionName },
-  } = req;
-  console.log("NOMBRE DE LA COLLECI´ON", collectionName);
+  const { file } = req;
+  console.log("NOMBRE DE LA COLLECI´ON", COLLECTION_NAME);
+  console.log(file);
   if (!file) return res.status(400).send();
   //Inicializamos la instancia de AWS Rekognition
 
@@ -182,7 +183,7 @@ const searchFaceByImage = async (req, res) => {
     // MaxFaces: 1,
     // FaceMatchThreshold?: Percent;
     // QualityFilter?: QualityFilter;
-    CollectionId: collectionName,
+    CollectionId: COLLECTION_NAME,
   };
 
   try {
@@ -190,13 +191,10 @@ const searchFaceByImage = async (req, res) => {
     console.log(params);
     const response = await rekognition.searchFacesByImage(params).promise();
     const faceMatches = response.FaceMatches;
-    console.log("faceMatches", faceMatches);
     return res.send({
       faceMatches,
     });
   } catch (error) {
-    console.log("ERROR");
-    console.error(error);
     return res.status(500).send({ error });
   }
 };

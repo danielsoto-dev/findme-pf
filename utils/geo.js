@@ -1,3 +1,13 @@
+export const appendLatLngFromCity = (data, city) => {
+  const [lat = null, lng = null] = cityToCoordinates[city];
+
+  return {
+    ...data,
+    lat,
+    lng,
+  };
+};
+
 export const cityToCoordinates = {
   Bogotá: [4.6126, -74.0705],
   Medellín: [6.2447, -75.5748],

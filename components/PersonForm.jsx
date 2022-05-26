@@ -1,41 +1,21 @@
 import React, { useState, useEffect } from "react";
+import { uploadToS3FromInput } from "../utils/s3-client";
 import { Button } from "./Button";
 import { PersonalDataForm } from "./PersonalDataForm";
 import { Formik, Form, useFormikContext } from "formik";
 import { useUser } from "@auth0/nextjs-auth0";
 import { PhysicalForm } from "./PhysicalForm";
-import { FormikSelect } from "./FormikSelect";
-import { cityToCoordinates } from "../utils/geo";
+import { appendLatLngFromCity } from "../utils/geo";
 import { FormikInput } from "./FormikInput";
 import { SchemaPerson as validationSchema } from "../utils/FormModels/yup-validations";
 import { personInitialValues } from "../utils/FormModels/formInitialValues";
-import { useColombiaData } from "../hooks/useColombiaData";
+import toast from "react-hot-toast";
 const steps = [
   "Información de la persona",
   "Caracteristicas fisicas",
   "Fotografía",
 ];
 
-function _sleep(ms) {
-  return new Promise((resolve) => setTimeout(resolve, ms));
-}
-const fetchPost = async () => {
-  try {
-    const $input = document.querySelector("#input-upload-img");
-    const formData = new FormData();
-    console.log($input);
-    formData.append("input-upload-img", $input.files[0]);
-    console.log(formData);
-    const response = await fetch("/api/aws/uploadS3", {
-      method: "POST",
-      body: formData,
-    });
-    const data = await response.json();
-    return data;
-  } catch (error) {
-    console.log(error);
-  }
-};
 function _renderStepContent(step) {
   switch (step) {
     case 0:
@@ -48,12 +28,25 @@ function _renderStepContent(step) {
       return <div>Not Found</div>;
   }
 }
-const fetchSearchProfile = async (values) => {
+const addPerson = async (values) => {
   try {
     const response = await fetch(`/api/persons`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(values),
+    });
+    const data = await response.json();
+    return data;
+  } catch (error) {
+    console.log(error);
+  }
+};
+const uploadFaceToCollection = async (id, imgKey) => {
+  try {
+    const response = await fetch(`/api/aws/addFace`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ id, imgKey }),
     });
     const data = await response.json();
     return data;
@@ -67,23 +60,30 @@ export const PersonForm = () => {
   const currentValidationSchema = validationSchema[activeStep];
   const isLastStep = activeStep === steps.length - 1;
   async function _submitForm(values, actions) {
-    let Location = "";
-    if (values["input-upload-img"] !== "") {
-      const res = await fetchPost();
-      Location = res?.Location;
+    try {
+      let imgUrl = "";
+      let imgKey = "";
+      if (values["input-upload-img"] !== "") {
+        const { Location, key } = await uploadToS3FromInput();
+        imgUrl = Location;
+        imgKey = key;
+      }
+      if (values.cityOfLastSighting !== "") {
+        console.log(values);
+        values = appendLatLngFromCity(values, values.cityOfLastSighting);
+      }
+      values.imgUrl = imgUrl;
+      values.sub = user.sub;
+      const newPerson = await addPerson(values);
+      if (imgKey !== "") {
+        let _res = await uploadFaceToCollection(newPerson._id, imgKey);
+        console.log(_res);
+      }
+      toast.success("Persona agregada");
+    } catch (error) {
+      console.log(error);
+      toast.error("Error al agregar persona");
     }
-    if (values.cityOfLastSighting !== "") {
-      const [lat = null, lng = null] =
-        cityToCoordinates[values.cityOfLastSighting];
-      values = {
-        ...values,
-        lat,
-        lng,
-      };
-    }
-    values.imgUrl = Location;
-    const result = await fetchSearchProfile(values);
-    console.log(result);
     actions.setSubmitting(false);
   }
 
