@@ -191,6 +191,7 @@ const searchFaceByImage = async (req, res) => {
     console.log(params);
     const response = await rekognition.searchFacesByImage(params).promise();
     const faceMatches = response.FaceMatches;
+    console.log(faceMatches);
     return res.send({
       faceMatches,
     });

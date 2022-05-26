@@ -17,7 +17,7 @@ export default async function handler(req, res) {
       await delete_(req, res);
       break;
     default:
-      res.status(500).end();
+      res.status(500).end("Method not defined");
   }
 }
 const post = async (req, res) => {
