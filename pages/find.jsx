@@ -28,14 +28,28 @@ const Recommended = () => {
       isMounted = false;
     };
   }, [user]);
-  const getPersonsFromIds = async (ids) => {
+  const getPersonsFromFaceMatches = async (faceMatches) => {
+    console.log(faceMatches);
+    const facesIds = faceMatches.map((face) => {
+      return ["FaceId", face.Face.ExternalImageId];
+    });
     try {
       const response = await fetch(
-        `/api/persons?${new URLSearchParams([["type", "byIds"], ...ids])}`
+        `/api/persons?${new URLSearchParams([["type", "byIds"], ...facesIds])}`
       );
       const persons = await response.json();
-
-      setPersons(persons);
+      // const personsWithStats = persons.map((person) => {
+      //   const {}
+      //   return {};
+      // });
+      const personsWithSimilarity = persons.map((person) => {
+        const findMatch = faceMatches.find(
+          (match) => match.Face.ExternalImageId === person._id
+        );
+        const similarity = findMatch.Similarity;
+        return { ...person, similarity };
+      });
+      setPersons(personsWithSimilarity);
     } catch (error) {
       console.log(error);
     }
@@ -48,13 +62,8 @@ const Recommended = () => {
         method: "POST",
         body: new FormData(ref.current),
       });
-      console.log(response);
       const { faceMatches = [] } = await response.json();
-      console.log(faceMatches);
-      const facesIDs = faceMatches.map((face) => {
-        return ["FaceId", face.Face.ExternalImageId];
-      });
-      getPersonsFromIds(facesIDs);
+      getPersonsFromFaceMatches(faceMatches);
     } catch (error) {
       console.log(error);
     }

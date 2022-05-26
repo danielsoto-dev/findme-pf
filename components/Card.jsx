@@ -2,6 +2,7 @@ import Image from "next/image";
 import { format } from "date-fns";
 import { calculateAge, calculateFullAge } from "../utils/time";
 export const Card = ({
+  similarity = "",
   firstName = "",
   middleName = "",
   lastName = "",
@@ -47,6 +48,7 @@ export const Card = ({
         <p>
           <span className="">Edad actual: {age}</span>
         </p>
+        {similarity !== "" && <p>Similarity: {similarity}</p>}
         <p>Sexo:{sex}</p>
         <p>Estature: {Number(height) / 100}m</p>
         <p className="  mb-2 text-blue-500"></p>
