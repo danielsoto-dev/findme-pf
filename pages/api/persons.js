@@ -2,7 +2,7 @@ import { dbConnect } from "../../lib/dbConnect";
 import PersonModel from "../../models/Person";
 import UserModel from "../../models/User";
 export default async function handler(req, res) {
-  dbConnect();
+  await dbConnect();
 
   switch (req.method) {
     case "GET":
