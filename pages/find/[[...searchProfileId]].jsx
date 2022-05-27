@@ -1,13 +1,37 @@
 import { useEffect, useState, useRef } from "react";
 import { useUser } from "@auth0/nextjs-auth0";
-import { Card } from "../components/Card";
-import { Header } from "../components/Header";
-import { SearchBar } from "../components/SearchBar";
+import { Card } from "../../components/Card";
+import { Header } from "../../components/Header";
+import { useRouter } from "next/router";
+import { SearchBar } from "../../components/SearchBar";
 import { toast } from "react-hot-toast";
 const Recommended = () => {
   const { user, error, isLoading } = useUser();
+  const router = useRouter();
+  const searchProfileIdArray = router.query.searchProfileId;
+  let searchProfileId;
+  if (searchProfileIdArray) {
+    searchProfileId = searchProfileIdArray[0];
+  }
   const ref = useRef(null);
   const [persons, setPersons] = useState([]);
+  useEffect(() => {
+    //fetch search profile
+    async function getSearchProfile() {
+      try {
+        const response = await fetch(`/api/search-profiles/${searchProfileId}`);
+        const searchProfile = await response.json();
+        console.log(searchProfile);
+      } catch (error) {
+        console.log("error", error);
+      }
+    }
+    if (searchProfileId) {
+      console.log("called");
+      getSearchProfile();
+    }
+  }, [searchProfileId]);
+
   useEffect(() => {
     let isMounted = true;
     async function fetchPersons() {

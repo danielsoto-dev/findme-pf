@@ -1,6 +1,6 @@
-import { dbConnect } from "../../lib/dbConnect";
-import SearchProfileModel from "../../models/SearchProfile";
-import User from "../../models/User";
+import { dbConnect } from "../../../lib/dbConnect";
+import SearchProfileModel from "../../../models/SearchProfile";
+import User from "../../../models/User";
 export default async function handler(req, res) {
   await dbConnect();
 
@@ -22,8 +22,8 @@ export default async function handler(req, res) {
   }
 }
 const get = async (req, res) => {
-  const { sub } = req.query;
-  console.log(sub);
+  const { sub, searchingProfiles } = req.query;
+  console.log(req.query);
   try {
     if (sub) {
       const userPopulated = await User.findOne({ sub }).populate(

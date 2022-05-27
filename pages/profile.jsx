@@ -21,6 +21,7 @@ const Profile = () => {
       );
       setProfiles(await profiles.json());
     }
+    fetchProfiles();
   }, [user]);
 
   return (
@@ -47,7 +48,7 @@ const Profile = () => {
                   return (
                     <a
                       key={idx}
-                      href={`/search-by-profile/${profile._id}`}
+                      href={`/find/${profile._id}`}
                       className="cursor-pointer text-gray-900 hover:bg-blue-500 hover:text-white group flex rounded-md items-center w-full px-2 py-2 text-sm"
                     >
                       {profile.nickname}
