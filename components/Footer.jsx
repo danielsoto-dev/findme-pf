@@ -11,19 +11,19 @@ export const Footer = ({ className }) => {
           </h1>
         </section>
         <section>
-          <h4 className="text-xl font-bold">Navigation</h4>
+          <h4 className="text-xl font-bold">Navegación</h4>
           <ul>
             <li>
-              <Link href="/about">About Us</Link>
+              <Link href="/about">Acerca de Nosotros</Link>
             </li>
             <li>
-              <Link href="/contact-us">Contact Us</Link>
+              <Link href="/contact-us">Contactano</Link>
             </li>
           </ul>
         </section>
 
         <section>
-          <h4 className="text-xl font-bold">Access</h4>
+          <h4 className="text-xl font-bold">Acceso</h4>
           <ul>
             <li>
               <Link href="/api/signup">Sign Up</Link>

@@ -33,7 +33,12 @@ const Profile = () => {
           <div className="">
             <h2 className="text-2xl mb-6">Acount Data</h2>
             {user?.picture && (
-              <Image src={user.picture} width={50} height={50} />
+              <Image
+                src={user.picture}
+                alt="User picture"
+                width={50}
+                height={50}
+              />
             )}
             <p className="text-blue-500 text-xl">
               {user?.nickname && user?.name}
