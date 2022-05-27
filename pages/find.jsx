@@ -3,6 +3,7 @@ import { useUser } from "@auth0/nextjs-auth0";
 import { Card } from "../components/Card";
 import { Header } from "../components/Header";
 import { SearchBar } from "../components/SearchBar";
+import { toast } from "react-hot-toast";
 const Recommended = () => {
   const { user, error, isLoading } = useUser();
   const ref = useRef(null);
@@ -29,7 +30,6 @@ const Recommended = () => {
     };
   }, [user]);
   const getPersonsFromFaceMatches = async (faceMatches) => {
-    console.log(faceMatches);
     const facesIds = faceMatches.map((face) => {
       return ["FaceId", face.Face.ExternalImageId];
     });
@@ -38,10 +38,6 @@ const Recommended = () => {
         `/api/persons?${new URLSearchParams([["type", "byIds"], ...facesIds])}`
       );
       const persons = await response.json();
-      // const personsWithStats = persons.map((person) => {
-      //   const {}
-      //   return {};
-      // });
       const personsWithSimilarity = persons.map((person) => {
         const findMatch = faceMatches.find(
           (match) => match.Face.ExternalImageId === person._id
@@ -63,6 +59,14 @@ const Recommended = () => {
         body: new FormData(ref.current),
       });
       const { faceMatches = [] } = await response.json();
+      if (faceMatches.length == 0) {
+        toast("No se encontraron coincidencias", {
+          icon: "ℹ",
+          id: "searchFace",
+          duration: 3000,
+        });
+        return;
+      }
       getPersonsFromFaceMatches(faceMatches);
     } catch (error) {
       console.log(error);
@@ -76,13 +80,39 @@ const Recommended = () => {
       </h2>
       <div className="gap-y-8 px-12">
         <form ref={ref} onSubmit={searchFace} encType="multipart/form-data">
+          <label
+            htmlFor="formFile"
+            className="form-label block mb-2 text-gray-700 text-lg font-semibold"
+          >
+            Ingrese una foto para buscar
+          </label>
           <input
+            className="form-control
+
+    w-[200p]
+    px-3
+    py-1.5
+    text-base
+    font-normal
+    text-gray-700
+    bg-white bg-clip-padding
+    border border-solid border-gray-300
+    rounded
+    transition
+    ease-in-out
+    m-0
+    focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
             type="file"
             name="searchFace"
             id="searchFace"
             accept="image/*"
           />
-          <button onClick={searchFace}>submit</button>
+          <button
+            className="ml-4 px-4 py-2 rounded-md text-white font-bold bg-gray-400 hover:bg-slate-300"
+            onClick={searchFace}
+          >
+            Submit
+          </button>
         </form>
         {/* <SearchBar />
          */}
@@ -94,7 +124,7 @@ const Recommended = () => {
 const RecommendedGrid = ({ persons }) => {
   return (
     <>
-      <div className="grid row-auto grid-cols-[repeat(auto-fill,minmax(300px,1fr))] gap-4 ">
+      <div className="mt-10 grid row-auto grid-cols-[repeat(auto-fill,minmax(300px,1fr))] gap-4 ">
         {persons &&
           persons.map((person, idx) => {
             return <Card key={person._id} {...person} />;

@@ -102,7 +102,7 @@ const HairTypeGroup = () => {
   return (
     <>
       <div id="my-radio-group" className="text-lg text-center font-bold">
-        Seleccione el color de cabello más cercano
+        Seleccione el tipo de cabello más cercano
       </div>
       <div
         className="flex gap-6 justify-center"
@@ -127,7 +127,7 @@ const HairColorGroup = () => {
   return (
     <>
       <div id="my-radio-group" className="text-lg text-center font-bold">
-        Seleccione el tipo de cabello más cercano
+        Seleccione el color de cabello más cercano
       </div>
       <div
         className="flex gap-6 justify-center"
