@@ -6,9 +6,19 @@ import { FormikSelect } from "./FormikSelect";
 import { FormikInput } from "./FormikInput";
 import { useColombiaData } from "../hooks/useColombiaData";
 import toast from "react-hot-toast";
-export const FilterMenu = ({ setPersons }) => {
+export const FilterMenu = ({ setPersons, searchProfile }) => {
   const { colombiaData, departments } = useColombiaData();
-
+  console.log("searchProfile", searchProfile);
+  if (searchProfile) {
+    for (let key in filtersInitialValues) {
+      if (filtersInitialValues[key] === "") {
+        filtersInitialValues[key] = searchProfile[key];
+      }
+      if (!filtersInitialValues[key]) {
+        filtersInitialValues[key] = "";
+      }
+    }
+  }
   return (
     <Formik
       initialValues={filtersInitialValues}
@@ -44,12 +54,14 @@ export const FilterMenu = ({ setPersons }) => {
               type="date"
             />
             <FormikSelect
+              canSelectEmpty={true}
               label="Sexo de nacimiento"
               name="sex"
               type="text"
               options={["Masculino", "Femenino", "Intersexual"]}
             />
             <FormikSelect
+              canSelectEmpty={true}
               label="Tipo de documento"
               name="documentType"
               options={["CC", "TI", "CE", "Pasaporte"]}
@@ -72,10 +84,11 @@ export const FilterMenu = ({ setPersons }) => {
                 styles="col-span"
                 name="departmentOfLastSighting"
                 options={departments}
+                canSelectEmpty={true}
               />
               <FormikSelect
                 name="cityOfLastSighting"
-                disabled={formik.values.departmentOfLastSighting === ""}
+                canSelectEmpty={true}
                 options={
                   colombiaData.find(
                     (i) =>

@@ -100,7 +100,7 @@ const Recommended = () => {
         Aquí podrás encontrar a los usuarios que coincidan con tu búsqueda
       </h2>
       <div className="gap-y-8 px-12">
-        {!searchProfile ? (
+        {!searchProfile?.imgUrl ? (
           <FormImg ref={ref} onSubmit={searchFace} />
         ) : (
           <div className="">
@@ -121,7 +121,7 @@ const Recommended = () => {
             </button>
           </div>
         )}
-        <FilterMenu setPersons={setPersons} />
+        <FilterMenu searchProfile={searchProfile} setPersons={setPersons} />
         <button
           onClick={() => fetchPersons(true)}
           className=" inline-block mt-4 px-4 py-2 rounded-md text-white font-bold bg-red-400 hover:bg-slate-300"

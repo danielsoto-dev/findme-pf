@@ -75,6 +75,12 @@ export const PersonForm = () => {
       }
       values.imgUrl = imgUrl;
       values.sub = user.sub;
+      //lowercase all values if are strings
+      // Object.keys(values).forEach((key) => {
+      //   if (typeof values[key] === "string") {
+      //     values[key] = values[key].toLowerCase();
+      //   }
+      // });
       const newPerson = await addPerson(values);
       if (imgKey !== "") {
         let _res = await uploadFaceToCollection(newPerson._id, imgKey);
