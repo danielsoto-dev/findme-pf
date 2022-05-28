@@ -169,11 +169,39 @@ const addFaceToCollection = async (req, res) => {
       .send({ error: `From addFaceToCollection ocurred: ${error}` });
   }
 };
+const searchFaceByImageUrl = async (req, res) => {
+  const { imgName } = req.query;
+  console.log(req.query);
+  // Usando un FileStream para enviar a AWS
+  const params = {
+    Image: {
+      S3Object: {
+        Bucket: BUCKET_NAME,
+        Name: imgName,
+      }, // MaxFaces: 1,
+    },
+    QualityFilter: "LOW",
+    CollectionId: COLLECTION_NAME,
+  };
+
+  try {
+    // Solicitamos el reconocimiento a AWS
+    console.log(params);
+    const response = await rekognition.searchFacesByImage(params).promise();
+    const faceMatches = response.FaceMatches;
+    console.log(faceMatches);
+    return res.send({
+      faceMatches,
+    });
+  } catch (error) {
+    return res.status(500).send({ error });
+  }
+};
 const searchFaceByImage = async (req, res) => {
   const { file } = req;
   console.log("NOMBRE DE LA COLLECI´ON", COLLECTION_NAME);
   console.log(file);
-  if (!file) return res.status(400).send();
+  if (!file) return res.status(400).send({ error: "No file" });
   //Inicializamos la instancia de AWS Rekognition
 
   // Usando un FileStream para enviar a AWS
@@ -185,7 +213,7 @@ const searchFaceByImage = async (req, res) => {
     QualityFilter: "LOW",
     CollectionId: COLLECTION_NAME,
   };
-
+  console.log("params from buffer", params);
   try {
     // Solicitamos el reconocimiento a AWS
     console.log(params);
@@ -221,4 +249,5 @@ module.exports = {
   deleteCollection,
   addFaceToCollection,
   searchFaceByImage,
+  searchFaceByImageUrl,
 };

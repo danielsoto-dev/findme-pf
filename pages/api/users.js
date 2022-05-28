@@ -30,10 +30,8 @@ const post = async (req, res) => {
     const user = await UserModel.findOne({ sub });
     if (!user) {
       const newUser = await new UserModel({ sub, email }).save();
-      console.log("new user created", newUser);
       res.status(201).json(newUser);
     } else {
-      console.log("User already exists:", user);
       res.status(200).json(user);
     }
   } catch (error) {

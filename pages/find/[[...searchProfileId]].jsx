@@ -1,8 +1,9 @@
-import { useEffect, useState, useRef } from "react";
+import { useEffect, useState, useRef, forwardRef } from "react";
 import { useUser } from "@auth0/nextjs-auth0";
 import { Card } from "../../components/Card";
 import { Header } from "../../components/Header";
 import { useRouter } from "next/router";
+import Image from "next/image";
 import { SearchBar } from "../../components/SearchBar";
 import { toast } from "react-hot-toast";
 const Recommended = () => {
@@ -15,19 +16,21 @@ const Recommended = () => {
   }
   const ref = useRef(null);
   const [persons, setPersons] = useState([]);
+  const [searchProfile, setSearchProfile] = useState(null);
   useEffect(() => {
     //fetch search profile
     async function getSearchProfile() {
       try {
-        const response = await fetch(`/api/search-profiles/${searchProfileId}`);
+        const response = await fetch(
+          `/api/search-profiles/${searchProfileId}?type=one`
+        );
         const searchProfile = await response.json();
-        console.log(searchProfile);
+        setSearchProfile(searchProfile);
       } catch (error) {
         console.log("error", error);
       }
     }
     if (searchProfileId) {
-      console.log("called");
       getSearchProfile();
     }
   }, [searchProfileId]);
@@ -75,23 +78,15 @@ const Recommended = () => {
     }
   };
   const searchFace = async (e) => {
-    console.log(ref);
     e.preventDefault();
     try {
-      const response = await fetch(`/api/aws/searchFace`, {
-        method: "POST",
-        body: new FormData(ref.current),
-      });
-      const { faceMatches = [] } = await response.json();
-      if (faceMatches.length == 0) {
-        toast("No se encontraron coincidencias", {
-          icon: "ℹ",
-          id: "searchFace",
-          duration: 3000,
-        });
-        return;
+      let faceMatches;
+      if (searchProfile) {
+        faceMatches = await getMatchesFromSearchProfileImg(searchProfile);
+      } else {
+        faceMatches = await getMatchesFromInputImg(ref);
       }
-      getPersonsFromFaceMatches(faceMatches);
+      if (faceMatches) getPersonsFromFaceMatches(faceMatches);
     } catch (error) {
       console.log(error);
     }
@@ -103,43 +98,27 @@ const Recommended = () => {
         These are the top X persons that match your searching params
       </h2>
       <div className="gap-y-8 px-12">
-        <form ref={ref} onSubmit={searchFace} encType="multipart/form-data">
-          <label
-            htmlFor="formFile"
-            className="form-label block mb-2 text-gray-700 text-lg font-semibold"
-          >
-            Ingrese una foto para buscar
-          </label>
-          <input
-            className="form-control
-
-    w-[200p]
-    px-3
-    py-1.5
-    text-base
-    font-normal
-    text-gray-700
-    bg-white bg-clip-padding
-    border border-solid border-gray-300
-    rounded
-    transition
-    ease-in-out
-    m-0
-    focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
-            type="file"
-            name="searchFace"
-            id="searchFace"
-            accept="image/*"
-          />
-          <button
-            className="ml-4 px-4 py-2 rounded-md text-white font-bold bg-gray-400 hover:bg-slate-300"
-            onClick={searchFace}
-          >
-            Submit
-          </button>
-        </form>
-        {/* <SearchBar />
-         */}
+        {!searchProfile ? (
+          <FormImg ref={ref} onSubmit={searchFace} />
+        ) : (
+          <div className="">
+            <p className="text-xl fonr-bold"> Foto de perfil de busqueda:</p>
+            <div className="mt-2">
+              <Image
+                src={searchProfile.imgUrl}
+                width="100"
+                height="100"
+                alt="Human"
+              />
+            </div>
+            <button
+              className="ml-4 px-4 py-2 rounded-md text-white font-bold bg-gray-400 hover:bg-slate-300"
+              onClick={searchFace}
+            >
+              Buscar
+            </button>
+          </div>
+        )}
         <RecommendedGrid persons={persons} />
       </div>
     </>
@@ -157,4 +136,79 @@ const RecommendedGrid = ({ persons }) => {
     </>
   );
 };
+
+const FormImg = forwardRef(function Form({ onSubmit }, ref) {
+  return (
+    <form ref={ref} onSubmit={onSubmit} encType="multipart/form-data">
+      <label
+        htmlFor="formFile"
+        className="form-label block mb-2 text-gray-700 text-lg font-semibold"
+      >
+        Ingrese una foto para buscar
+      </label>
+      <input
+        className="form-control
+
+    w-[200p]
+    px-3
+    py-1.5
+    text-base
+    font-normal
+    text-gray-700
+    bg-white bg-clip-padding
+    border border-solid border-gray-300
+    rounded
+    transition
+    ease-in-out
+    m-0
+    focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
+        type="file"
+        name="searchFace"
+        id="searchFace"
+        accept="image/*"
+      />
+      <button
+        className="ml-4 px-4 py-2 rounded-md text-white font-bold bg-gray-400 hover:bg-slate-300"
+        onClick={onSubmit}
+      >
+        Submit
+      </button>
+    </form>
+  );
+});
+
+const getMatchesFromInputImg = async (ref) => {
+  const response = await fetch(`/api/aws/searchFace`, {
+    method: "POST",
+    body: new FormData(ref.current),
+  });
+  const { faceMatches = [] } = await response.json();
+  if (faceMatches.length == 0) {
+    toast("No se encontraron coincidencias", {
+      icon: "ℹ",
+      id: "searchFace",
+      duration: 3000,
+    });
+    return;
+  }
+  return faceMatches;
+};
+const getMatchesFromSearchProfileImg = async ({ imgUrl }) => {
+  const imgName = imgUrl.split("/").pop();
+
+  const response = await fetch(`/api/aws/searchFaceByUrl?imgName=${imgName}`, {
+    method: "POST",
+  });
+  const { faceMatches = [] } = await response.json();
+  if (faceMatches.length == 0) {
+    toast("No se encontraron coincidencias", {
+      icon: "ℹ",
+      id: "searchFace",
+      duration: 3000,
+    });
+    return;
+  }
+  return faceMatches;
+};
+
 export default Recommended;

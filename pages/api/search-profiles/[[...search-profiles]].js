@@ -22,8 +22,30 @@ export default async function handler(req, res) {
   }
 }
 const get = async (req, res) => {
-  const { sub, searchingProfiles } = req.query;
-  console.log(req.query);
+  switch (req.query.type) {
+    case "one":
+      await getOne(req, res);
+      break;
+    case "allFromUser":
+      await getAllFromUser(req, res);
+      break;
+    default:
+      res.status(500).json({ error: "Invalid type" });
+  }
+};
+const getOne = async (req, res) => {
+  console.log("req.query", req.query);
+  try {
+    const { "search-profiles": id } = req.query;
+    const searchProfile = await SearchProfileModel.findById(id);
+    res.json(searchProfile);
+  } catch (error) {
+    console.log("error getting searchProfile", error);
+    res.status(500).json({ error });
+  }
+};
+const getAllFromUser = async (req, res) => {
+  const { sub } = req.query;
   try {
     if (sub) {
       const userPopulated = await User.findOne({ sub }).populate(

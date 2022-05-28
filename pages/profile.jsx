@@ -17,7 +17,9 @@ const Profile = () => {
         return;
       }
       let profiles = await fetch(
-        `/api/search-profiles/?${new URLSearchParams({ sub: user.sub })}`
+        `/api/search-profiles/?${new URLSearchParams({
+          sub: user.sub,
+        })}&type=allFromUser`
       );
       setProfiles(await profiles.json());
     }
