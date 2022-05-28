@@ -32,10 +32,32 @@ const get = async (req, res) => {
     case "byIds":
       await getByIds(req, res);
       break;
+    case "withFilter":
+      await getWithFilter(req, res);
+      break;
     default:
       res.status(500).json({ error: "Invalid type" });
   }
 };
+const getWithFilter = async (req, res) => {
+  //fetch persons collection and bring all documents that match the filter
+  const filter = req.query;
+  delete filter.type;
+  for (let key in filter) {
+    if (filter[key] === "") {
+      delete filter[key];
+    }
+  }
+  console.log("filter", filter);
+  try {
+    const persons = await PersonModel.find(filter).exec();
+    res.status(200).json(persons);
+  } catch (error) {
+    console.log("error getting persons", error);
+    res.status(500).json({ error: "error getting persons" });
+  }
+};
+
 const getByIds = async (req, res) => {
   try {
     const { FaceId: FaceIds } = req.query;

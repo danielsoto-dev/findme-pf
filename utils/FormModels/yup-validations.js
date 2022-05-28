@@ -74,3 +74,22 @@ export const SchemaPerson = [
     contactEmail: Yup.string().email("Invalid email").required("Required"),
   }),
 ];
+
+export const SchemaPersonFilter = Yup.object({
+  firstName: Yup.string().max(15, "Must be 15 characters or less"),
+  middleName: Yup.string().max(15, "Must be 15 characters or less"),
+  lastName: Yup.string().max(20, "Must be 20 characters or less"),
+  secondLastName: Yup.string().max(20, "Must be 20 characters or less"),
+  documentType: Yup.string(),
+  documentNumber: Yup.number().positive().integer(),
+  birthDate: Yup.date(),
+  departmentOfLastSighting: Yup.string(),
+  cityOfLastSighting: Yup.string(),
+  mobilePhone: Yup.number().positive().integer(),
+  sex: Yup.string(),
+  eyeColor: Yup.string(),
+  skinColor: Yup.string(),
+  hairType: Yup.string(),
+  hairColor: Yup.string(),
+  height: Yup.string(),
+});

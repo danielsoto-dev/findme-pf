@@ -6,6 +6,7 @@ import { useRouter } from "next/router";
 import Image from "next/image";
 import { SearchBar } from "../../components/SearchBar";
 import { toast } from "react-hot-toast";
+import { FilterMenu } from "../../components/FilterMenu";
 const Recommended = () => {
   const { user, error, isLoading } = useUser();
   const router = useRouter();
@@ -96,14 +97,14 @@ const Recommended = () => {
     <>
       <Header />{" "}
       <h2 className="text-center text-3xl h-[80px] my-8">
-        These are the top X persons that match your searching params
+        Aquí podrás encontrar a los usuarios que coincidan con tu búsqueda
       </h2>
       <div className="gap-y-8 px-12">
         {!searchProfile ? (
           <FormImg ref={ref} onSubmit={searchFace} />
         ) : (
           <div className="">
-            <p className="text-xl fonr-bold"> Foto de perfil de busqueda:</p>
+            <p className="text-xl font-bold"> Foto de perfil de busqueda:</p>
             <div className="mt-2">
               <Image
                 src={searchProfile.imgUrl}
@@ -120,6 +121,7 @@ const Recommended = () => {
             </button>
           </div>
         )}
+        <FilterMenu setPersons={setPersons} />
         <button
           onClick={() => fetchPersons(true)}
           className=" inline-block mt-4 px-4 py-2 rounded-md text-white font-bold bg-red-400 hover:bg-slate-300"
@@ -149,7 +151,7 @@ const FormImg = forwardRef(function Form({ onSubmit }, ref) {
     <form ref={ref} onSubmit={onSubmit} encType="multipart/form-data">
       <label
         htmlFor="formFile"
-        className="form-label block mb-2 text-gray-700 text-lg font-semibold"
+        className="form-label  block mb-2 text-gray-700 text-xl font-bold"
       >
         Ingrese una foto para buscar
       </label>
