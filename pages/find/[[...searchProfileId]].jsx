@@ -34,24 +34,25 @@ const Recommended = () => {
       getSearchProfile();
     }
   }, [searchProfileId]);
+  async function fetchPersons(isMounted) {
+    try {
+      const response = await fetch(
+        `/api/persons?${new URLSearchParams({ type: "all" })}`
+      );
 
+      const persons = await response.json();
+      console.log(persons);
+      if (isMounted) {
+        setPersons(persons);
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  }
   useEffect(() => {
     let isMounted = true;
-    async function fetchPersons() {
-      try {
-        const response = await fetch(
-          `/api/persons?${new URLSearchParams({ type: "all" })}`
-        );
-        const persons = await response.json();
-        console.log(persons);
-        if (isMounted) {
-          setPersons(persons);
-        }
-      } catch (error) {
-        console.log(error);
-      }
-    }
-    fetchPersons();
+
+    fetchPersons(isMounted);
     return () => {
       isMounted = false;
     };
@@ -119,6 +120,12 @@ const Recommended = () => {
             </button>
           </div>
         )}
+        <button
+          onClick={() => fetchPersons(true)}
+          className=" inline-block mt-4 px-4 py-2 rounded-md text-white font-bold bg-red-400 hover:bg-slate-300"
+        >
+          Resetear filtros
+        </button>
         <RecommendedGrid persons={persons} />
       </div>
     </>
