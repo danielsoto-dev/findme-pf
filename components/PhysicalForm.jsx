@@ -12,9 +12,9 @@ const eyeColors = [
   "#659bbd",
   "#9d9e9c",
 ];
-const hairTypes = ["Straight", "Wavy", "Curly", "Coily"];
+// const hairTypes = ["Straight", "Wavy", "Curly", "Coily"];
 const hairColors = ["#19140f", "#8e4a24", "#d0b48b", "#df7126", "#f0efed"];
-// const hairTypes = ["Lacio", "Ondulado", "Rizado", "Crespo"];
+const hairTypes = ["Lacio", "Ondulado", "Rizado", "Crespo"];
 export const PhysicalForm = () => {
   // const { values } = useFormikContext();
   return (

@@ -20,6 +20,9 @@ const PersonSchema = new Schema(
     documentType: {
       type: String,
     },
+    mobilePhone: {
+      type: String,
+    },
     documentNumber: {
       type: String,
     },

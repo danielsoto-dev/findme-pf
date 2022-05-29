@@ -36,6 +36,9 @@ const SearchProfileSchema = new Schema(
     skinColor: {
       type: String,
     },
+    mobilePhone: {
+      type: String,
+    },
     hairType: {
       type: String,
     },

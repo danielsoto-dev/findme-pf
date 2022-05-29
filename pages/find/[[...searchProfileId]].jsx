@@ -95,7 +95,7 @@ const Recommended = () => {
   };
   return (
     <>
-      <Header />{" "}
+      <Header />
       <h2 className="text-center text-3xl h-[80px] my-8">
         Aquí podrás encontrar a los usuarios que coincidan con tu búsqueda
       </h2>
@@ -157,7 +157,6 @@ const FormImg = forwardRef(function Form({ onSubmit }, ref) {
       </label>
       <input
         className="form-control
-
     w-[200p]
     px-3
     py-1.5

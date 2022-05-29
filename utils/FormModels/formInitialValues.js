@@ -38,6 +38,7 @@ export const filtersInitialValues = {
   hairType: "",
   hairColor: "",
   height: "",
+  searchMode: "withFilter",
 };
 export const personInitialValues = {
   nickname: "",

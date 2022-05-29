@@ -17,8 +17,8 @@ export const Card = ({
   hairType = "",
   hairColor = "",
   height = "",
-  departmentOfBirth = "",
-  cityOfBirth = "",
+  departmentOfLastSighting = "",
+  cityOfLastSighting = "",
   imgUrl = "",
   contactEmail = "",
 }) => {
@@ -27,7 +27,8 @@ export const Card = ({
     usableDate = format(new Date(birthDate), "dd/MM/yyyy");
   }
   const age = calculateAge(usableDate);
-  const fullName = `${firstName} ${middleName} ${lastName} ${secondLastName}`;
+  const names = `${firstName} ${middleName}`;
+  const lastNames = `${lastName} ${secondLastName}`;
   const handleOnClick = () => {
     alert("Redirect to detail");
   };
@@ -44,14 +45,29 @@ export const Card = ({
         </div>
       )}
       <div className="px-6 py-4">
-        <div className="font-bold mb-2">{fullName}</div>
+        <div className="font-bold mb-2">
+          <span className="underline">{names}</span>
+          {lastNames}
+        </div>
         <p>
           <span className="">Edad actual: {age}</span>
         </p>
-        {similarity !== "" && <p>Similarity: {similarity}</p>}
+        {similarity !== "" && (
+          <p>
+            Similaridad:{" "}
+            <span className="text-red-700 font-bold">
+              {Number(similarity).toFixed(3)}%
+            </span>
+          </p>
+        )}
         <p>Sexo:{sex}</p>
-        <p>Estature: {Number(height) / 100}m</p>
-        <p className="  mb-2 text-blue-500"></p>
+        {height && <p>Estatura: {Number(height) / 100}m</p>}
+        {departmentOfLastSighting && (
+          <p className="  mb-2 text-blue-500">
+            Ultima ubicación: {departmentOfLastSighting}
+            {cityOfLastSighting ? `, ${cityOfLastSighting}` : ""}
+          </p>
+        )}
       </div>
     </div>
   );
