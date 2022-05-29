@@ -35,8 +35,60 @@ const get = async (req, res) => {
     case "withFilter":
       await getWithFilter(req, res);
       break;
+    case "withFilterAutocomplete":
+      await getWithFilterAutocomplete(req, res);
+      break;
     default:
       res.status(500).json({ error: "Invalid type" });
+  }
+};
+const getWithFilterAutocomplete = async (req, res) => {
+  const filter = req.query;
+  delete filter.type;
+  //delete all empty fields
+  Object.keys(filter).forEach((key) => {
+    if (filter[key] === "" || !filter[key]) {
+      delete filter[key];
+    }
+  });
+  const autocompleteFields = [
+    "firstName",
+    "middleName",
+    "secondLastName",
+    "lastName",
+    "mobilePhone",
+    "documentNumber",
+  ];
+  const queries = autocompleteFields
+    .filter((field) => {
+      return filter[field];
+    })
+    .map((field) => {
+      return {
+        autocomplete: {
+          query: filter[field],
+          path: field,
+        },
+      };
+    });
+
+  //remove autocomplete fields from filter
+  autocompleteFields.forEach((field) => {
+    delete filter[field];
+  });
+  console.log(queries);
+  try {
+    const persons = await PersonModel.aggregate().search({
+      index: "searchText",
+      compound: {
+        must: [...queries],
+      },
+    });
+    console.log("persons", persons);
+    res.status(200).json(persons);
+  } catch (error) {
+    console.log("error getting persons with autocomplete", error);
+    res.status(500).json([]);
   }
 };
 const getWithFilter = async (req, res) => {
@@ -44,11 +96,10 @@ const getWithFilter = async (req, res) => {
   const filter = req.query;
   delete filter.type;
   for (let key in filter) {
-    if (filter[key] === "") {
+    if (filter[key] === "" || !filter[key]) {
       delete filter[key];
     }
   }
-  console.log("filter", filter);
   try {
     const persons = await PersonModel.find(filter).exec();
     res.status(200).json(persons);
