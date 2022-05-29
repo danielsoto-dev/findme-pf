@@ -38,8 +38,60 @@ const get = async (req, res) => {
     case "withFilterAutocomplete":
       await getWithFilterAutocomplete(req, res);
       break;
+    case "withFilterFuzzy":
+      await getWithFilterFuzzy(req, res);
+      break;
     default:
       res.status(500).json({ error: "Invalid type" });
+  }
+};
+const getWithFilterFuzzy = async (req, res) => {
+  const filter = req.query;
+  delete filter.type;
+  //delete all empty fields
+  Object.keys(filter).forEach((key) => {
+    if (filter[key] === "" || !filter[key]) {
+      delete filter[key];
+    }
+  });
+  const fuzzyFields = [
+    "firstName",
+    "middleName",
+    "secondLastName",
+    "lastName",
+    "mobilePhone",
+    "documentNumber",
+  ];
+  const queries = fuzzyFields
+    .filter((field) => {
+      return filter[field];
+    })
+    .map((field) => {
+      return {
+        text: {
+          query: filter[field],
+          path: field,
+          fuzzy: {},
+        },
+      };
+    });
+  //remove autocomplete fields from filter
+  fuzzyFields.forEach((field) => {
+    delete filter[field];
+  });
+  console.log(queries);
+  try {
+    const persons = await PersonModel.aggregate().search({
+      index: "Fuzzy",
+      compound: {
+        must: [...queries],
+      },
+    });
+    console.log("persons", persons);
+    res.status(200).json(persons);
+  } catch (error) {
+    console.log("error getting persons with fuzzy", error);
+    res.status(500).json([]);
   }
 };
 const getWithFilterAutocomplete = async (req, res) => {

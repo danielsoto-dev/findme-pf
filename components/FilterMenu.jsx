@@ -41,7 +41,7 @@ export const FilterMenu = ({ setPersons, searchProfile }) => {
         <>
           <p className="mt-4 text-xl font-bold">Filtros de busqueda</p>
           <Form className=" mt-4 grid gap-4 grid-cols-4 h-fit border-solid border-inherit rounded-lg">
-            <div className="flex gap-2 " role="group" by="searchMode">
+            <div className="flex flex-wrap gap-2 " role="group" by="searchMode">
               <label className="">
                 <span className="mr-2">Estandar</span>
                 <Field type="radio" name="searchMode" value="withFilter" />
@@ -53,6 +53,10 @@ export const FilterMenu = ({ setPersons, searchProfile }) => {
                   name="searchMode"
                   value="withFilterAutocomplete"
                 />
+              </label>
+              <label className="">
+                <span className="mr-2">Fuzzy</span>
+                <Field type="radio" name="searchMode" value="withFilterFuzzy" />
               </label>
             </div>
             <FormikInput label="Primer nombre" name="firstName" type="text" />
