@@ -38,7 +38,7 @@ export const PeopleMissing = () => {
   const visibleSlides = Math.floor(width / cardSize.width);
   return (
     <div className="text-center">
-      <h3 className="text-2xl mb-5 mt-10">Missing people in your area</h3>{" "}
+      <h3 className="text-2xl mb-5 mt-10">Perfiles recientemente añadidos</h3>{" "}
       <CarouselProvider
         // infinite
         naturalSlideWidth={cardSize.width}

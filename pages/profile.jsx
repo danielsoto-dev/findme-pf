@@ -30,10 +30,10 @@ const Profile = () => {
     <>
       <Header />
       <div id="wrapper" className="flex flex-col min-h-full ">
-        <h1 className="text-center text-4xl mt-[50px]">Your information</h1>
+        <h1 className="text-center text-4xl mt-[50px]">Información</h1>
         <div className="p-8 mt-auto max-w-[800px] mx-auto grid grid-cols-2 gap-[80px]">
           <div className="">
-            <h2 className="text-2xl mb-6">Acount Data</h2>
+            <h2 className="text-2xl mb-6">Su Cuenta</h2>
             {user?.picture && (
               <Image
                 src={user.picture}
@@ -48,7 +48,7 @@ const Profile = () => {
             <p>{user?.email}</p>
           </div>
           <div id="add-new-person">
-            <h2 className="text-2xl mb-6">Your search profiles...</h2>
+            <h2 className="text-2xl mb-6">Sus perfiles de busqueda</h2>
             <div className="mt-4 max-h-[200px] overflow-x-auto">
               {profiles.length > 0 &&
                 profiles.map((profile, idx) => {
@@ -68,7 +68,7 @@ const Profile = () => {
               animated={false}
               className="mt-8 max-w-[180px] mx-auto block text-center border-[1px] transition duration-150 ease-in border-black rounded-md px-3 py-[5px] focus:bg-black focus:text-white hover:bg-black hover:text-white"
             >
-              Add new person +
+              Agregar nuevo perfil+
             </Link>
           </div>
         </div>
