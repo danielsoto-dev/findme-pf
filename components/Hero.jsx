@@ -9,8 +9,9 @@ export const Hero = () => {
 
   return (
     <div className="text-center mt-10">
-      <h2 className="text-2xl mb-5 ">
-        We are an website built to connect people!
+      <h2 className="text-3xl my-8 mt-20 ">
+        Nuestro objetivo es conectar personas dandoles las herramientas más
+        modernas
       </h2>
       <Image
         alt="A colorfull Colombian Street"
@@ -23,9 +24,9 @@ export const Hero = () => {
           onClick={() => {
             router.push("/api/signup");
           }}
-          className="block mx-auto text-xl mt-10"
+          className="block mx-auto text-xl mt-10 hover:bg-black hover:text-white ease-in-out duration-300 transition-colors"
         >
-          Register here!
+          ¡Registrate aqui!
         </Button>
       )}
     </div>

@@ -6,6 +6,20 @@ import { FormikSelect } from "./FormikSelect";
 import { FormikInput } from "./FormikInput";
 import { useColombiaData } from "../hooks/useColombiaData";
 import toast from "react-hot-toast";
+const skinColors = ["#fbd8ba", "#e9b48c", "#a76743", "#7c4522", "#452a17"];
+// Brown, Amber, Hazel, Green, Blue, Gray;
+
+const eyeColors = [
+  "#210500",
+  "#9c6d38",
+  "#73582d",
+  "#8d987f",
+  "#659bbd",
+  "#9d9e9c",
+];
+// const hairTypes = ["Straight", "Wavy", "Curly", "Coily"];
+const hairColors = ["#19140f", "#8e4a24", "#d0b48b", "#df7126", "#f0efed"];
+const hairTypes = ["Lacio", "Ondulado", "Rizado", "Crespo"];
 export const FilterMenu = ({ setPersons, searchProfile }) => {
   const { colombiaData, departments } = useColombiaData();
   console.log("searchProfile", searchProfile);
@@ -117,6 +131,70 @@ export const FilterMenu = ({ setPersons, searchProfile }) => {
                 }
               />
             </div>
+            <FormikSelect
+              label="Color de piel"
+              styles="col-span"
+              name="skinColor"
+              customOptions={skinColors.map((skin, idx) => {
+                return (
+                  <option
+                    key={skin}
+                    className="text-white font-bold"
+                    style={{ backgroundColor: skin }}
+                  >
+                    {idx}
+                  </option>
+                );
+              })}
+              canSelectEmpty={true}
+            />
+            <FormikSelect
+              label="Color de ojos"
+              styles="col-span"
+              name="hairColor"
+              customOptions={hairColors.map((color, idx) => {
+                return (
+                  <option
+                    key={color}
+                    className="text-white font-bold"
+                    style={{ backgroundColor: color }}
+                  >
+                    {idx}
+                  </option>
+                );
+              })}
+              canSelectEmpty={true}
+            />
+            <FormikSelect
+              label="Tipo de pelo"
+              styles="col-span"
+              name="hairType"
+              customOptions={hairTypes.map((type, idx) => {
+                return (
+                  <option key={type} value={idx}>
+                    {type}
+                  </option>
+                );
+              })}
+              canSelectEmpty={true}
+            />
+            <FormikSelect
+              label="Color de ojos"
+              styles="col-span"
+              name="eyeColor"
+              customOptions={eyeColors.map((color, idx) => {
+                return (
+                  <option
+                    key={color}
+                    className="text-white font-bold"
+                    style={{ backgroundColor: color }}
+                  >
+                    {idx}
+                  </option>
+                );
+              })}
+              canSelectEmpty={true}
+            />
             <button
               //   onClick={() => alert(JSON.stringify(formik.values))}
               type="submit"

@@ -6,9 +6,11 @@ export const FormikSelect = ({
   canSelectEmpty,
   styles,
   label,
+  customOptions,
   ...props
 }) => {
   const [field, meta] = useField(props);
+  console.log(customOptions);
   // console.log(field, meta);
   return (
     <div className={`flex flex-col ${styles}`}>
@@ -30,9 +32,9 @@ export const FormikSelect = ({
         <option value="" disabled={!canSelectEmpty}>
           {canSelectEmpty ? "Vacío" : "--Seleccione--"}
         </option>
-        {options.map((opt, index) => (
-          <option key={index}>{opt}</option>
-        ))}
+        {customOptions?.length > 0
+          ? customOptions
+          : options.map((opt, index) => <option key={index}>{opt}</option>)}
       </select>
       <ErrorMessage component="div" name={field.name} className="error" />
     </div>
