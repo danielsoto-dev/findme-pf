@@ -59,6 +59,9 @@ const PersonSchema = new Schema(
     imgUrl: {
       type: String,
     },
+    contactEmail: {
+      type: String,
+    },
   },
   { timestamps: true, versionKey: false }
 );

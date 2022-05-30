@@ -1,7 +1,9 @@
 import Image from "next/image";
+import { useRouter } from "next/router";
 import { format } from "date-fns";
 import { calculateAge, calculateFullAge } from "../utils/time";
 export const Card = ({
+  _id,
   similarity = "",
   firstName = "",
   middleName = "",
@@ -22,6 +24,7 @@ export const Card = ({
   imgUrl = "",
   contactEmail = "",
 }) => {
+  const router = useRouter();
   let usableDate = "";
   if (birthDate !== "") {
     usableDate = format(new Date(birthDate), "dd/MM/yyyy");
@@ -30,7 +33,7 @@ export const Card = ({
   const names = `${firstName} ${middleName}`;
   const lastNames = `${lastName} ${secondLastName}`;
   const handleOnClick = () => {
-    alert("Redirect to detail");
+    router.push(`/person/${_id}`);
   };
   return (
     <div

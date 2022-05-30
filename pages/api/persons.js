@@ -45,6 +45,20 @@ const get = async (req, res) => {
       res.status(500).json({ error: "Invalid type" });
   }
 };
+const getOne = async (req, res) => {
+  const { id } = req.query;
+  console.log(id);
+  try {
+    const person = await PersonModel.findById(id).exec();
+    if (!person) {
+      res.status(404).json({ error: "Person not found" });
+    } else {
+      res.status(200).json(person);
+    }
+  } catch (error) {
+    res.status(500).json({ error });
+  }
+};
 const getWithFilterFuzzy = async (req, res) => {
   const filter = req.query;
   delete filter.type;

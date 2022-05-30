@@ -1,20 +1,12 @@
 import React from "react";
 import { Field, useFormikContext } from "formik";
 import { FormikSelect } from "./FormikSelect";
-const skinColors = ["#fbd8ba", "#e9b48c", "#a76743", "#7c4522", "#452a17"];
-// Brown, Amber, Hazel, Green, Blue, Gray;
-
-const eyeColors = [
-  "#210500",
-  "#9c6d38",
-  "#73582d",
-  "#8d987f",
-  "#659bbd",
-  "#9d9e9c",
-];
-// const hairTypes = ["Straight", "Wavy", "Curly", "Coily"];
-const hairColors = ["#19140f", "#8e4a24", "#d0b48b", "#df7126", "#f0efed"];
-const hairTypes = ["Lacio", "Ondulado", "Rizado", "Crespo"];
+import {
+  skinColors,
+  hairTypes,
+  eyeColors,
+  hairColors,
+} from "../utils/dictOfPhysical";
 export const PhysicalForm = () => {
   // const { values } = useFormikContext();
   return (

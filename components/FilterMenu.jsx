@@ -1,4 +1,10 @@
 import React, { useEffect } from "react";
+import {
+  hairColors,
+  skinColors,
+  eyeColors,
+  hairTypes,
+} from "../utils/dictOfPhysical";
 import { Formik, Form, Field } from "formik";
 import { filtersInitialValues } from "../utils/FormModels/formInitialValues";
 import { SchemaPersonFilter } from "../utils/FormModels/yup-validations";
@@ -6,20 +12,7 @@ import { FormikSelect } from "./FormikSelect";
 import { FormikInput } from "./FormikInput";
 import { useColombiaData } from "../hooks/useColombiaData";
 import toast from "react-hot-toast";
-const skinColors = ["#fbd8ba", "#e9b48c", "#a76743", "#7c4522", "#452a17"];
-// Brown, Amber, Hazel, Green, Blue, Gray;
 
-const eyeColors = [
-  "#210500",
-  "#9c6d38",
-  "#73582d",
-  "#8d987f",
-  "#659bbd",
-  "#9d9e9c",
-];
-// const hairTypes = ["Straight", "Wavy", "Curly", "Coily"];
-const hairColors = ["#19140f", "#8e4a24", "#d0b48b", "#df7126", "#f0efed"];
-const hairTypes = ["Lacio", "Ondulado", "Rizado", "Crespo"];
 export const FilterMenu = ({ setPersons, searchProfile }) => {
   const { colombiaData, departments } = useColombiaData();
   console.log("searchProfile", searchProfile);
