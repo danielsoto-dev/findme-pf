@@ -4,16 +4,16 @@ const ContactForm = () => {
       <section className="text-gray-700 body-font relative">
         <div className="container px-5 py-24 mx-auto">
           <div className="flex flex-col text-center w-full mb-12">
-          <h2 className="text-3xl font-bold text-gray-900 sm:text-4xl xl:text-5xl font-pj">
-            Contact Us
-          </h2>
+            <h2 className="text-3xl font-bold text-gray-900 sm:text-4xl xl:text-5xl font-pj">
+              Contactanos
+            </h2>
           </div>
           <div className="lg:w-1/2 md:w-2/3 mx-auto">
             <div className="flex flex-wrap -m-2">
               <div className="p-2 w-1/2">
                 <div className="relative">
                   <label className="leading-7 text-sm text-gray-600">
-                    Name
+                    Nombre
                   </label>
                   <input
                     type="text"
@@ -39,7 +39,7 @@ const ContactForm = () => {
               <div className="p-2 w-full">
                 <div className="relative">
                   <label className="leading-7 text-sm text-gray-600">
-                    Message
+                    Mensaje
                   </label>
                   <textarea
                     id="message"
@@ -49,8 +49,8 @@ const ContactForm = () => {
                 </div>
               </div>
               <div className="p-2 w-full">
-                <button className="flex mx-auto text-white bg-indigo-500 border-0 py-2 px-8 focus:outline-none hover:bg-indigo-600 rounded text-lg">
-                  Submit
+                <button className="flex mx-auto text-white bg-indigo-500 border-0 py-2 px-5 focus:outline-none hover:bg-indigo-600 rounded text-lg">
+                  Enviar
                 </button>
               </div>
             </div>

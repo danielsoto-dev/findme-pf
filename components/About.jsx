@@ -4,10 +4,10 @@ const About = () => {
       <div className="px-4 mx-auto max-w-7xl sm:px-6 lg:px-8">
         <div className="text-center">
           <h2 className="text-3xl font-bold text-gray-900 sm:text-4xl xl:text-5xl font-pj">
-            About Us
+            Sobre nosotros
           </h2>
           <p className="max-w-md mx-auto mt-5 text-base font-normal text-gray-600 font-pj">
-          Why are we here?
+            ¿Por qué estamos aquí?
           </p>
         </div>
         <div className="flex flex-col items-center max-w-md mx-auto mt-8 lg:mt-20 lg:flex-row lg:max-w-none">
@@ -17,7 +17,8 @@ const About = () => {
                 1
               </div>
               <p className="mt-5 text-xl font-medium text-gray-900 font-pj">
-              We emerged with the purpose of helping people connect with their missing loved ones
+                Surgimos con el propósito de ayudar a las personas a conectarse
+                con sus seres queridos desaparecidos.
               </p>
             </div>
           </div>
@@ -138,7 +139,10 @@ const About = () => {
             <div className="absolute -inset-4">
               <div
                 className="w-full h-full mx-auto rotate-180 opacity-20 blur-lg filter"
-                style={{background: "linear-gradient(90deg, #44FF9A -0.55%, #44B0FF 22.86%, #8B44FF 48.36%, #FF6644 73.33%, #EBFF70 99.34%)"}}
+                style={{
+                  background:
+                    "linear-gradient(90deg, #44FF9A -0.55%, #44B0FF 22.86%, #8B44FF 48.36%, #FF6644 73.33%, #EBFF70 99.34%)",
+                }}
               ></div>
             </div>
 
@@ -148,7 +152,8 @@ const About = () => {
                   2
                 </div>
                 <p className="mt-5 text-xl font-medium text-gray-900 font-pj">
-                The idea started as a project for final project
+                  Se desarrolló una plataforma gracias un proyecto de final de
+                  carrera.
                 </p>
               </div>
             </div>
@@ -272,7 +277,8 @@ const About = () => {
                 3
               </div>
               <p className="mt-5 text-xl font-medium text-gray-900 font-pj">
-              We aspire to reach several countries, mainly Latin American countries
+                Aspiramos a llegar a varios países, principalmente países
+                latinoamericanos, donde más se necesita.
               </p>
             </div>
           </div>
