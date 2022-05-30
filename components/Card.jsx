@@ -1,6 +1,15 @@
 import Image from "next/image";
 import { useRouter } from "next/router";
 import { format } from "date-fns";
+const valueToSexColor = (value) => {
+  if (value === "Masculino") {
+    return "#1B1BE4";
+  } else if (value === "Femenino") {
+    return "#FF49A4";
+  } else {
+    return "gray";
+  }
+};
 import { calculateAge, calculateFullAge } from "../utils/time";
 export const Card = ({
   _id,
@@ -63,7 +72,10 @@ export const Card = ({
             </span>
           </p>
         )}
-        <p>Sexo:{sex}</p>
+        <p>
+          Sexo: <span style={{ color: valueToSexColor(sex) }}>{sex}</span>
+        </p>
+
         {height && <p>Estatura: {Number(height) / 100}m</p>}
         {departmentOfLastSighting && (
           <p className="  mb-2 text-blue-500">

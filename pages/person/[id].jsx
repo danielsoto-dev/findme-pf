@@ -11,6 +11,16 @@ import {
   hairTypes,
 } from "../../utils/dictOfPhysical";
 import Image from "next/image";
+
+const valueToSexColor = (value) => {
+  if (value === "Masculino") {
+    return "#1B1BE4";
+  } else if (value === "Femenino") {
+    return "#FF49A4";
+  } else {
+    return "gray";
+  }
+};
 const Detail = () => {
   const router = useRouter();
   const { id } = router.query;
@@ -89,6 +99,15 @@ const Detail = () => {
             <p>
               <span className="font-semibold">Ultima ubicación conocida: </span>
               {person?.departmentOfLastSighting}, {person?.cityOfLastSighting}
+            </p>
+            <p>
+              <span className="font-semibold">Sexo:</span>{" "}
+              <span
+                className="font-semibold"
+                style={{ color: valueToSexColor(person?.sex) }}
+              >
+                {person?.sex}
+              </span>
             </p>
             <p>
               <span className="font-semibold">Edad a día de hoy: </span>
