@@ -1,8 +1,8 @@
-import { dbConnect } from "../../lib/dbConnect";
-import SearchProfileModel from "../../models/SearchProfile";
-import User from "../../models/User";
+import { dbConnect } from "../../../lib/dbConnect";
+import SearchProfileModel from "../../../models/SearchProfile";
+import User from "../../../models/User";
 export default async function handler(req, res) {
-  dbConnect();
+  await dbConnect();
 
   switch (req.method) {
     case "GET":
@@ -22,8 +22,30 @@ export default async function handler(req, res) {
   }
 }
 const get = async (req, res) => {
+  switch (req.query.type) {
+    case "one":
+      await getOne(req, res);
+      break;
+    case "allFromUser":
+      await getAllFromUser(req, res);
+      break;
+    default:
+      res.status(500).json({ error: "Invalid type" });
+  }
+};
+const getOne = async (req, res) => {
+  console.log("req.query", req.query);
+  try {
+    const { "search-profiles": id } = req.query;
+    const searchProfile = await SearchProfileModel.findById(id);
+    res.json(searchProfile);
+  } catch (error) {
+    console.log("error getting searchProfile", error);
+    res.status(500).json({ error });
+  }
+};
+const getAllFromUser = async (req, res) => {
   const { sub } = req.query;
-  console.log(sub);
   try {
     if (sub) {
       const userPopulated = await User.findOne({ sub }).populate(

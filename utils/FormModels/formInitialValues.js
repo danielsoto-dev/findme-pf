@@ -21,6 +21,25 @@ export const searchProfileInitialValues = {
   imgUrl: "",
   "input-upload-img": "",
 };
+export const filtersInitialValues = {
+  firstName: "",
+  middleName: "",
+  lastName: "",
+  secondLastName: "",
+  documentType: "",
+  documentNumber: "",
+  birthDate: "",
+  departmentOfLastSighting: "",
+  cityOfLastSighting: "",
+  mobilePhone: "",
+  sex: "",
+  eyeColor: "",
+  skinColor: "",
+  hairType: "",
+  hairColor: "",
+  height: "",
+  searchMode: "withFilter",
+};
 export const personInitialValues = {
   nickname: "",
   firstName: "",

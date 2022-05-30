@@ -117,10 +117,23 @@ const Img = () => {
       <div className="flex flex-col items-center mt-auto">
         <label htmlFor="input-upload-img">Upload an img</label>
         <FormikInput
+          className="form-control
+    w-[200p]
+    px-3
+    py-1.5
+    text-base
+    font-normal
+    text-gray-700
+    bg-white bg-clip-padding
+    border border-solid border-gray-300
+    rounded
+    transition
+    ease-in-out
+    m-0
+    focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
           type="file"
           name="input-upload-img"
           id="input-upload-img"
-          className="mb-4"
           accept="image/*"
         />
       </div>

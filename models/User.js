@@ -17,6 +17,9 @@ const UserSchema = new Schema(
       unique: true,
       index: true,
     },
+    mobilePhone: {
+      type: String,
+    },
     hasFilledProfile: {
       type: Boolean,
       default: false,

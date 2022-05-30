@@ -1,6 +1,7 @@
 import { Menu, Transition } from "@headlessui/react";
 import { Fragment, useEffect, useRef, useState } from "react";
 import Image from "next/image";
+import Link from "next/link";
 const imageSize = "25px";
 const ANIMATION = "transition duration-300 ease-out n";
 export const DropDown = ({ user }) => {
@@ -31,14 +32,15 @@ export const DropDown = ({ user }) => {
             <div className="px-1 py-1 ">
               <Menu.Item>
                 {({ active }) => (
-                  <a
-                    href="profile"
-                    className={`${
-                      active ? "bg-blue-500 text-white" : "text-gray-900"
-                    } group flex rounded-md items-center w-full px-2 py-2 text-sm`}
-                  >
-                    Profile
-                  </a>
+                  <Link href="/profile">
+                    <a
+                      className={`${
+                        active ? "bg-blue-500 text-white" : "text-gray-900"
+                      } group flex rounded-md items-center w-full px-2 py-2 text-sm`}
+                    >
+                      Profile
+                    </a>
+                  </Link>
                 )}
               </Menu.Item>
               <Menu.Item>

@@ -65,6 +65,7 @@ export const PersonForm = () => {
       let imgKey = "";
       if (values["input-upload-img"] !== "") {
         const { Location, key } = await uploadToS3FromInput();
+        console.log(key);
         imgUrl = Location;
         imgKey = key;
       }
@@ -74,6 +75,12 @@ export const PersonForm = () => {
       }
       values.imgUrl = imgUrl;
       values.sub = user.sub;
+      //lowercase all values if are strings
+      // Object.keys(values).forEach((key) => {
+      //   if (typeof values[key] === "string") {
+      //     values[key] = values[key].toLowerCase();
+      //   }
+      // });
       const newPerson = await addPerson(values);
       if (imgKey !== "") {
         let _res = await uploadFaceToCollection(newPerson._id, imgKey);
@@ -137,14 +144,29 @@ const Img = () => {
       <div className="flex flex-col items-center mt-auto">
         <label htmlFor="input-upload-img">Upload an img</label>
         <FormikInput
+          className="form-control
+    w-[200p]
+    px-3
+    py-1.5
+    text-base
+    font-normal
+    text-gray-700
+    bg-white bg-clip-padding
+    border border-solid border-gray-300
+    rounded
+    transition
+    ease-in-out
+    m-0
+    focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
           type="file"
           name="input-upload-img"
           id="input-upload-img"
-          className="mb-4"
           accept="image/*"
         />
+        <label className="mt-4" htmlFor="email">
+          Email de contacto
+        </label>
         <FormikInput
-          label="Email de contacto"
           type="email"
           name="contactEmail"
           id="contactEmail"

@@ -20,6 +20,9 @@ const PersonSchema = new Schema(
     documentType: {
       type: String,
     },
+    mobilePhone: {
+      type: String,
+    },
     documentNumber: {
       type: String,
     },
@@ -41,10 +44,10 @@ const PersonSchema = new Schema(
     height: {
       type: Number,
     },
-    departmentOfBirth: {
+    departmentOfLastSighting: {
       type: String,
     },
-    cityOfLastBirth: {
+    cityOfLastSighting: {
       type: String,
     },
     lat: {

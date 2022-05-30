@@ -15,6 +15,7 @@ export const Header = () => {
   useEffect(() => {
     async function checkIfUserIsRegister() {
       if (user && !isLoading) {
+        console.log("user pre fetch", user);
         const data = await checkIfUserIsInDatabase(user);
         const { hasFilledProfile } = data;
         if (!hasFilledProfile) {
@@ -51,13 +52,13 @@ export const Header = () => {
       />
       <nav className={`justify-around items-center hidden ${mobileStyles}`}>
         <Link className="mx-4" href="/about">
-          About Us
+          Acerca de Nosotros
         </Link>
         <Link className="mx-4" href="/person-register">
-          Register a Person
+          Registrar una persona
         </Link>
         <Link className="mx-4" href="/contact-us">
-          Contact Us
+          Contactanos
         </Link>
         {user && !isLoading && !error ? (
           <LoggedIn user={user} />
@@ -88,7 +89,7 @@ const LoggedIn = ({ user }) => {
   return (
     <>
       <Link href="/find" className="mx-4">
-        Find People
+        Encuentra personas
       </Link>
       <span className="text-blue-500 mx-4">{user.name}</span>
       <DropDown user={user} />

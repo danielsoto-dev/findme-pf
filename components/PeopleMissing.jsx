@@ -7,51 +7,32 @@ import {
 } from "pure-react-carousel";
 import { cardSize } from "../config/sizes";
 import { Card } from "./Card";
-import { useRef, useEffect } from "react";
+import { useRef, useEffect, useState } from "react";
 import { useWidthObserver } from "../hooks/useSizeObserver";
 import { HiOutlineChevronLeft, HiOutlineChevronRight } from "react-icons/hi";
-const peopleInfo = [
-  {
-    fullName: "Daniel Soto Jaimes",
-    age: 18,
-    location: "Barranquilla, Atlántico",
-  },
-  {
-    fullName: "Daniel Soto Jaimes",
-    age: 18,
-    location: "Barranquilla, Atlántico",
-  },
-  {
-    fullName: "Daniel Soto Jaimes",
-    age: 18,
-    location: "Barranquilla, Atlántico",
-  },
-  {
-    fullName: "Daniel Soto Jaimes",
-    age: 18,
-    location: "Barranquilla, Atlántico",
-  },
-  {
-    fullName: "Daniel Soto Jaimes",
-    age: 18,
-    location: "Barranquilla, Atlántico",
-  },
-  {
-    fullName: "Daniel Soto Jaimes",
-    age: 18,
-    location: "Barranquilla, Atlántico",
-  },
-];
+
 export const PeopleMissing = () => {
   const sliderRef = useRef(null);
+  const [persons = [], setPersons] = useState([]);
   const { width, setWidth } = useWidthObserver({ targetRef: sliderRef });
   useEffect(() => {
-    //fixes the initial state of the slider, when the component is mounted
-    // otherwise the width will be undefined
     if (!width) {
       let newWidth = document.querySelector("#slider-wrapper").clientWidth;
       setWidth(newWidth);
     }
+    async function getPersons() {
+      try {
+        const response = await fetch(
+          `/api/persons?${new URLSearchParams({ type: "all" })}`
+        );
+        const persons = await response.json();
+        console.log(persons);
+        setPersons(persons);
+      } catch (error) {
+        console.log(error);
+      }
+    }
+    getPersons();
   }, []);
 
   const visibleSlides = Math.floor(width / cardSize.width);
@@ -63,21 +44,17 @@ export const PeopleMissing = () => {
         naturalSlideWidth={cardSize.width}
         naturalSlideHeight={cardSize.height}
         visibleSlides={visibleSlides}
-        totalSlides={peopleInfo.length}
+        totalSlides={persons.length}
         isIntrinsicHeight
         className="relative"
       >
         <div id="slider-wrapper" className="px-20" ref={sliderRef}>
           <Slider className="p-2" classNameTray="gap-8">
-            {peopleInfo.map((person, index) => {
+            {persons.map((person, index) => {
               return (
                 //Change the key to the ID of the person
-                <Slide index={index} key={person.fullName + index}>
-                  <Card
-                    fullName={person.fullName}
-                    age={person.age}
-                    location={person.location}
-                  />
+                <Slide index={index} key={person._id}>
+                  <Card {...person} />
                 </Slide>
               );
             })}

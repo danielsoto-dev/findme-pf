@@ -12,9 +12,9 @@ const eyeColors = [
   "#659bbd",
   "#9d9e9c",
 ];
-const hairTypes = ["Straight", "Wavy", "Curly", "Coily"];
+// const hairTypes = ["Straight", "Wavy", "Curly", "Coily"];
 const hairColors = ["#19140f", "#8e4a24", "#d0b48b", "#df7126", "#f0efed"];
-// const hairTypes = ["Lacio", "Ondulado", "Rizado", "Crespo"];
+const hairTypes = ["Lacio", "Ondulado", "Rizado", "Crespo"];
 export const PhysicalForm = () => {
   // const { values } = useFormikContext();
   return (
@@ -102,7 +102,7 @@ const HairTypeGroup = () => {
   return (
     <>
       <div id="my-radio-group" className="text-lg text-center font-bold">
-        Seleccione el color de cabello más cercano
+        Seleccione el tipo de cabello más cercano
       </div>
       <div
         className="flex gap-6 justify-center"
@@ -127,7 +127,7 @@ const HairColorGroup = () => {
   return (
     <>
       <div id="my-radio-group" className="text-lg text-center font-bold">
-        Seleccione el tipo de cabello más cercano
+        Seleccione el color de cabello más cercano
       </div>
       <div
         className="flex gap-6 justify-center"

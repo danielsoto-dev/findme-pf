@@ -1,8 +1,8 @@
 import { dbConnect } from "../../lib/dbConnect";
 import PersonModel from "../../models/Person";
-import User from "../../models/User";
+import UserModel from "../../models/User";
 export default async function handler(req, res) {
-  dbConnect();
+  await dbConnect();
 
   switch (req.method) {
     case "GET":
@@ -22,15 +22,166 @@ export default async function handler(req, res) {
   }
 }
 const get = async (req, res) => {
-  const { query } = req;
-  try {
-    const data = await PersonModel.find(query);
-    res.status(200).json(data);
-  } catch (error) {
-    console.log("error getting persons", error);
-    res.status(500).json(error);
+  switch (req.query.type) {
+    case "all":
+      await getAll(req, res);
+      break;
+    case "one":
+      await getOne(req, res);
+      break;
+    case "byIds":
+      await getByIds(req, res);
+      break;
+    case "withFilter":
+      await getWithFilter(req, res);
+      break;
+    case "withFilterAutocomplete":
+      await getWithFilterAutocomplete(req, res);
+      break;
+    case "withFilterFuzzy":
+      await getWithFilterFuzzy(req, res);
+      break;
+    default:
+      res.status(500).json({ error: "Invalid type" });
   }
 };
+const getWithFilterFuzzy = async (req, res) => {
+  const filter = req.query;
+  delete filter.type;
+  //delete all empty fields
+  Object.keys(filter).forEach((key) => {
+    if (filter[key] === "" || !filter[key]) {
+      delete filter[key];
+    }
+  });
+  const fuzzyFields = [
+    "firstName",
+    "middleName",
+    "secondLastName",
+    "lastName",
+    "mobilePhone",
+    "documentNumber",
+  ];
+  const queries = fuzzyFields
+    .filter((field) => {
+      return filter[field];
+    })
+    .map((field) => {
+      return {
+        text: {
+          query: filter[field],
+          path: field,
+          fuzzy: {},
+        },
+      };
+    });
+  //remove autocomplete fields from filter
+  fuzzyFields.forEach((field) => {
+    delete filter[field];
+  });
+  console.log(queries);
+  try {
+    const persons = await PersonModel.aggregate().search({
+      index: "Fuzzy",
+      compound: {
+        must: [...queries],
+      },
+    });
+    console.log("persons", persons);
+    res.status(200).json(persons);
+  } catch (error) {
+    console.log("error getting persons with fuzzy", error);
+    res.status(500).json([]);
+  }
+};
+const getWithFilterAutocomplete = async (req, res) => {
+  const filter = req.query;
+  delete filter.type;
+  //delete all empty fields
+  Object.keys(filter).forEach((key) => {
+    if (filter[key] === "" || !filter[key]) {
+      delete filter[key];
+    }
+  });
+  const autocompleteFields = [
+    "firstName",
+    "middleName",
+    "secondLastName",
+    "lastName",
+    "mobilePhone",
+    "documentNumber",
+  ];
+  const queries = autocompleteFields
+    .filter((field) => {
+      return filter[field];
+    })
+    .map((field) => {
+      return {
+        autocomplete: {
+          query: filter[field],
+          path: field,
+        },
+      };
+    });
+
+  //remove autocomplete fields from filter
+  autocompleteFields.forEach((field) => {
+    delete filter[field];
+  });
+  console.log(queries);
+  try {
+    const persons = await PersonModel.aggregate().search({
+      index: "searchText",
+      compound: {
+        must: [...queries],
+      },
+    });
+    console.log("persons", persons);
+    res.status(200).json(persons);
+  } catch (error) {
+    console.log("error getting persons with autocomplete", error);
+    res.status(500).json([]);
+  }
+};
+const getWithFilter = async (req, res) => {
+  //fetch persons collection and bring all documents that match the filter
+  const filter = req.query;
+  delete filter.type;
+  for (let key in filter) {
+    if (filter[key] === "" || !filter[key]) {
+      delete filter[key];
+    }
+  }
+  try {
+    const persons = await PersonModel.find(filter).exec();
+    res.status(200).json(persons);
+  } catch (error) {
+    console.log("error getting persons", error);
+    res.status(500).json({ error: "error getting persons" });
+  }
+};
+
+const getByIds = async (req, res) => {
+  try {
+    const { FaceId: FaceIds } = req.query;
+    console.log("FaceIds", FaceIds);
+    const persons = await PersonModel.find({ _id: { $in: FaceIds } });
+    res.json(persons);
+  } catch (error) {
+    console.log("error getting persons", error);
+    res.status(500).json({ error });
+  }
+};
+
+const getAll = async (req, res) => {
+  try {
+    const persons = await PersonModel.find({});
+    res.json(persons);
+  } catch (error) {
+    res.status(500).json({ error });
+  }
+};
+
 const post = async (req, res) => {
   const values = req.body;
   try {

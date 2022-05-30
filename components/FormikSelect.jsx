@@ -1,7 +1,13 @@
 import React from "react";
 import { ErrorMessage, useField } from "formik";
 
-export const FormikSelect = ({ options = [], styles, label, ...props }) => {
+export const FormikSelect = ({
+  options = [],
+  canSelectEmpty,
+  styles,
+  label,
+  ...props
+}) => {
   const [field, meta] = useField(props);
   // console.log(field, meta);
   return (
@@ -21,8 +27,8 @@ export const FormikSelect = ({ options = [], styles, label, ...props }) => {
         {...props}
         autoComplete="off"
       >
-        <option value="" disabled>
-          --select--
+        <option value="" disabled={!canSelectEmpty}>
+          {canSelectEmpty ? "Vacío" : "--Seleccione--"}
         </option>
         {options.map((opt, index) => (
           <option key={index}>{opt}</option>

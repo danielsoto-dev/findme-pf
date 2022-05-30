@@ -17,10 +17,13 @@ const Profile = () => {
         return;
       }
       let profiles = await fetch(
-        `/api/search-profiles/?${new URLSearchParams({ sub: user.sub })}`
+        `/api/search-profiles/?${new URLSearchParams({
+          sub: user.sub,
+        })}&type=allFromUser`
       );
       setProfiles(await profiles.json());
     }
+    fetchProfiles();
   }, [user]);
 
   return (
@@ -32,7 +35,12 @@ const Profile = () => {
           <div className="">
             <h2 className="text-2xl mb-6">Acount Data</h2>
             {user?.picture && (
-              <Image src={user.picture} width={50} height={50} />
+              <Image
+                src={user.picture}
+                alt="User picture"
+                width={50}
+                height={50}
+              />
             )}
             <p className="text-blue-500 text-xl">
               {user?.nickname && user?.name}
@@ -47,7 +55,7 @@ const Profile = () => {
                   return (
                     <a
                       key={idx}
-                      href={`/search-by-profile/${profile._id}`}
+                      href={`/find/${profile._id}`}
                       className="cursor-pointer text-gray-900 hover:bg-blue-500 hover:text-white group flex rounded-md items-center w-full px-2 py-2 text-sm"
                     >
                       {profile.nickname}

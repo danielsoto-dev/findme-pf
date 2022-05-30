@@ -1,7 +1,6 @@
 import nextConnect from "next-connect";
-import multer from "multer";
-import { uploadImg } from "../../../utils/s3";
-const upload = multer();
+import { searchFaceByImageUrl } from "../../../utils/rekognition";
+
 const apiRoute = nextConnect({
   onError(error, req, res) {
     res
@@ -13,16 +12,8 @@ const apiRoute = nextConnect({
   },
 });
 
-apiRoute.use(upload.single("input-upload-img"));
-
 apiRoute.post((req, res) => {
-  uploadImg(req, res);
+  searchFaceByImageUrl(req, res);
 });
 
 export default apiRoute;
-
-export const config = {
-  api: {
-    bodyParser: false,
-  },
-};
