@@ -2,7 +2,7 @@ import { Link } from "./Link";
 export const Footer = ({ className }) => {
   return (
     <footer className={`p-[24px] ${className}`}>
-      <nav className="grid grid-cols-3">
+      <nav className="grid grid-cols-1 sm:grid-cols-3">
         <section>
           <h1 className="text-4xl">
             <Link href="/">
@@ -11,19 +11,19 @@ export const Footer = ({ className }) => {
           </h1>
         </section>
         <section>
-          <h4 className="text-xl font-bold">Navegación</h4>
+          <h4 className="mt-4 sm:mt-0 text-xl font-bold">Navegación</h4>
           <ul>
             <li>
               <Link href="/about">Acerca de Nosotros</Link>
             </li>
             <li>
-              <Link href="/contact-us">Contactano</Link>
+              <Link href="/contact-us">Contactanos</Link>
             </li>
           </ul>
         </section>
 
         <section>
-          <h4 className="text-xl font-bold">Acceso</h4>
+          <h4 className="mt-4 sm:mt-0 text-xl font-bold">Acceso</h4>
           <ul>
             <li>
               <Link href="/api/signup">Sign Up</Link>

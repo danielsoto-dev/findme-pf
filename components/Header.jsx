@@ -36,7 +36,7 @@ export const Header = () => {
   }, [user, isLoading]);
 
   return (
-    <header className="sticky top-0 md:static z-10 bg-white flex justify-around items-center h-[80px]">
+    <header className="sticky top-0 pt-10 px-4 md:static z-10 bg-white flex justify-around items-center h-[80px]">
       <h1 className="text-4xl">
         <Link href="/">
           Find<span className="text-blue-500">Me</span>

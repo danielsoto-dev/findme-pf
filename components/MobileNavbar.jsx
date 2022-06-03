@@ -25,6 +25,9 @@ export const MobileMenuList = () => {
       <Link className="" href="/person-register">
         Registrar una persona
       </Link>
+      <Link className="" href="/find">
+        Encuentra una persona
+      </Link>
       <Link className="" href="/contact-us">
         Contactanos
       </Link>
