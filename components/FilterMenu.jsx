@@ -62,7 +62,7 @@ export const FilterMenu = ({ setPersons, searchProfile }) => {
                 />
               </label>
               <label className="">
-                <span className="mr-2">Fuzzy</span>
+                <span className="mr-2">Difusa</span>
                 <Field type="radio" name="searchMode" value="withFilterFuzzy" />
               </label>
             </div>
