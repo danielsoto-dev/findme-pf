@@ -1,11 +1,13 @@
 export const appendLatLngFromCity = (data, city) => {
-  const [lat = null, lng = null] = cityToCoordinates[city];
-
-  return {
-    ...data,
-    lat,
-    lng,
-  };
+  if (cityToCoordinates[city]) {
+    const [lat = null, lng = null] = cityToCoordinates[city];
+    return {
+      ...data,
+      lat,
+      lng,
+    };
+  }
+  return data;
 };
 
 export const cityToCoordinates = {
