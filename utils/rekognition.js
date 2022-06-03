@@ -178,6 +178,7 @@ const searchFaceByImageUrl = async (req, res) => {
       S3Object: {
         Bucket: BUCKET_NAME,
         Name: imgName,
+        FaceMatchThreshold: 20,
       }, // MaxFaces: 1,
     },
     QualityFilter: "LOW",
@@ -209,7 +210,7 @@ const searchFaceByImage = async (req, res) => {
     Image: {
       Bytes: file.buffer,
     },
-    // MaxFaces: 1,
+    FaceMatchThreshold: 20,
     QualityFilter: "LOW",
     CollectionId: COLLECTION_NAME,
   };

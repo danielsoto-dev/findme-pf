@@ -50,14 +50,15 @@ export const PeopleMissing = () => {
       >
         <div id="slider-wrapper" className="px-20" ref={sliderRef}>
           <Slider className="p-2" classNameTray="gap-8">
-            {persons.map((person, index) => {
-              return (
-                //Change the key to the ID of the person
-                <Slide index={index} key={person._id}>
-                  <Card {...person} />
-                </Slide>
-              );
-            })}
+            {persons.length > 0 &&
+              persons.map((person, index) => {
+                return (
+                  //Change the key to the ID of the person
+                  <Slide index={index} key={person._id}>
+                    <Card {...person} />
+                  </Slide>
+                );
+              })}
           </Slider>
         </div>
         <div className="text-5xl">
