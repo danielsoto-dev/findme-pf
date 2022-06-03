@@ -95,12 +95,14 @@ const getWithFilterFuzzy = async (req, res) => {
   });
   console.log(queries);
   try {
-    const persons = await PersonModel.aggregate().search({
-      index: "Fuzzy",
-      compound: {
-        must: [...queries],
-      },
-    });
+    const persons = await PersonModel.aggregate()
+      .search({
+        index: "Fuzzy",
+        compound: {
+          must: [...queries],
+        },
+      })
+      .match({ ...filter });
     console.log("persons", persons);
     res.status(200).json(persons);
   } catch (error) {
@@ -142,14 +144,18 @@ const getWithFilterAutocomplete = async (req, res) => {
   autocompleteFields.forEach((field) => {
     delete filter[field];
   });
-  console.log(queries);
   try {
-    const persons = await PersonModel.aggregate().search({
+    const t = {
       index: "searchText",
       compound: {
         must: [...queries],
       },
-    });
+    };
+    console.log(JSON.stringify(t));
+
+    const persons = await PersonModel.aggregate()
+      .search({ ...t })
+      .match({ ...filter });
     console.log("persons", persons);
     res.status(200).json(persons);
   } catch (error) {
