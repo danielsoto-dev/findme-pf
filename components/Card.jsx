@@ -39,7 +39,7 @@ export const Card = ({
     usableDate = format(new Date(birthDate), "dd/MM/yyyy");
   }
   const age = calculateAge(usableDate);
-  const names = `${firstName} ${middleName}`;
+  const names = `${firstName} ${middleName} `;
   const lastNames = `${lastName} ${secondLastName}`;
   const handleOnClick = () => {
     router.push(`/person/${_id}`);
