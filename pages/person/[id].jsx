@@ -89,8 +89,7 @@ const Detail = () => {
           <div className="w-full md:w-1/2 gap-3 p-4 flex flex-col justify-center">
             <p>
               <span className="font-semibold">Nombres: </span>
-              {person?.firstName}
-              {person?.secondName}
+              {person?.firstName} {person?.middleName}
             </p>
             <p>
               <span className="font-semibold">Apellidos: </span>
