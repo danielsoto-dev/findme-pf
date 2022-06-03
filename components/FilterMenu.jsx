@@ -142,7 +142,7 @@ export const FilterMenu = ({ setPersons, searchProfile }) => {
               canSelectEmpty={true}
             />
             <FormikSelect
-              label="Color de ojos"
+              label="Color de pelo"
               styles="col-span"
               name="hairColor"
               customOptions={hairColors.map((color, idx) => {
