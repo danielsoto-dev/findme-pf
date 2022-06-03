@@ -19,8 +19,16 @@ export const MobileMenuList = () => {
   const { user, error, isLoading } = useUser();
   return (
     <div className="text-lg flex p-4 pl-8 flex-col items-start gap-[20px] z-10 bg-white fixed h-[100vh] top-[80px] right-0 left-0 bottom-0">
-      <Link href="/about">About Us</Link>
-      <Link href="/contact-us">Contact Us</Link>
+      <Link className="" href="/about">
+        Acerca de Nosotros
+      </Link>
+      <Link className="" href="/person-register">
+        Registrar una persona
+      </Link>
+      <Link className="" href="/contact-us">
+        Contactanos
+      </Link>
+
       {user && !isLoading && !error ? (
         <LoggedIn user={user} />
       ) : (
