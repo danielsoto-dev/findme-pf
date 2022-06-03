@@ -66,7 +66,7 @@ const Profile = () => {
             <Link
               href="/search-profile-register"
               animated={false}
-              className="mt-8 max-w-[180px] mx-auto block text-center border-[1px] transition duration-150 ease-in border-black rounded-md px-3 py-[5px] focus:bg-black focus:text-white hover:bg-black hover:text-white"
+              className="mt-8 max-w-[220px] mx-auto block text-center border-[1px] transition duration-150 ease-in border-black rounded-md px-3 py-[5px] focus:bg-black focus:text-white hover:bg-black hover:text-white"
             >
               Agregar nuevo perfil+
             </Link>
