@@ -74,7 +74,11 @@ const Recommended = () => {
         const similarity = findMatch.Similarity;
         return { ...person, similarity };
       });
-      setPersons(personsWithSimilarity);
+      //sort persons by similarity
+      const sortedPersons = personsWithSimilarity.sort((a, b) => {
+        return b.similarity - a.similarity;
+      });
+      setPersons(sortedPersons);
     } catch (error) {
       console.log(error);
     }
